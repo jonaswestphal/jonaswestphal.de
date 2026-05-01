@@ -31,8 +31,10 @@ jobs:
           command: pages deploy dist --project-name=jonaswestphal-de --branch=main
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: "4"
+          packageManager: "pnpm"
 
-      # Preview deployment (dev branch → dev.jonaswestphal.de)
+      # Preview deployment (dev branch)
       - name: Deploy to Preview
         if: github.ref == 'refs/heads/dev'
         uses: cloudflare/wrangler-action@v3
@@ -40,3 +42,5 @@ jobs:
           command: pages deploy dist --project-name=jonaswestphal-de --branch=dev
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: "4"
+          packageManager: "pnpm"
