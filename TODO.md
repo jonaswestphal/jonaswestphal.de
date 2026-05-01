@@ -82,13 +82,8 @@
 
 1. [x] Im Cloudflare Dashboard: **Turnstile** → **Add Widget** erstellt
 2. [x] Domains hinzugefuegt: `www.jonaswestphal.de`, `dev.jonaswestphal.de`, `localhost`, `jonaswestphal-de.pages.dev`
-3. [ ] **Site Key** in `src/components/Contact.astro` — **PROBLEM: Error 400020 (Invalid sitekey)**
-   - Aktuell: Test-Key `1x00000000000000000000AA` eingesetzt zur Diagnose
-   - Dein Key `0x4AAAAAADHJ7JtBo-u2Hran` verursacht 400020
-   - **Naechster Schritt:** Pruefen ob Test-Key funktioniert. Falls ja: neues Turnstile Widget erstellen und neuen Key verwenden
+3. [x] **Site Key** in `src/components/Contact.astro` eingetragen (`0x4AAAAAADHLjI7ijWjqpUev`)
 4. [x] **Secret Key** im Worker als Secret hinterlegt (`TURNSTILE_SECRET_KEY`)
-
-> **Empfehlung:** Turnstile Secret Key im Dashboard rotieren, da er einmal im Chat sichtbar war.
 
 ---
 
@@ -137,17 +132,8 @@
 ## 8. Worker deployen
 
 1. [x] Worker erstmalig via `npx wrangler deploy` deployed
-2. [ ] Custom Domain fuer Worker einrichten: `contact.jonaswestphal.de`
-   - Cloudflare Dashboard → Workers & Pages → `contact-form-worker` → Settings → Triggers → Custom Domains
-   - `contact.jonaswestphal.de` hinzufuegen
-3. [ ] Endpoint testen:
-   ```bash
-   curl -X POST https://contact.jonaswestphal.de/api/contact \
-     -H "Content-Type: application/json" \
-     -H "Origin: https://www.jonaswestphal.de" \
-     -d '{"name":"Test","email":"test@example.com","message":"Test","cf-turnstile-response":"test"}'
-   ```
-   Erwartete Antwort: `403` (Turnstile schlaegt fehl, aber Worker antwortet)
+2. [x] Custom Domain fuer Worker eingerichtet: `contact.jonaswestphal.de`
+3. [x] Kontaktformular End-to-End getestet: Turnstile ✅, SES E-Mail ✅, Danke-Seite ✅
 
 ---
 
@@ -159,7 +145,7 @@
    - `src/layouts/Layout.astro` ✅
    - `src/components/CookieConsent.astro` ✅
 4. [ ] In GA4 Einstellungen:
-   - **Google Signals**: Deaktivieren
+   - **Google Signals**: Deaktivieren --> ist nicht aktiv - erledigt
    - **Datenspeicherung**: Auf 2 Monate setzen --> ERLEDIGT
    - **Anzeigenpersonalisierung**: Deaktivieren
 
@@ -214,7 +200,7 @@
 
 | Datei | Platzhalter | Status |
 |-------|------------|--------|
-| `src/components/Contact.astro` | Turnstile Site Key | ⚠️ Test-Key aktiv, Production Key verursacht 400020 |
+| `src/components/Contact.astro` | Turnstile Site Key | ✅ `0x4AAAAAADHLjI7ijWjqpUev` |
 | `src/layouts/Layout.astro` | GA4 Measurement ID | ✅ `G-WP95NLRJ61` eingetragen |
 | `src/components/CookieConsent.astro` | GA4 Measurement ID | ✅ `G-WP95NLRJ61` eingetragen |
 | `worker/wrangler.toml` | KV Namespace ID | ✅ Eingetragen |
