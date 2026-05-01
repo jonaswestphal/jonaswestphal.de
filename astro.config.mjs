@@ -2,10 +2,13 @@ import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 
+import cloudflare from "@astrojs/cloudflare";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://www.jonaswestphal.de",
   integrations: [sitemap()],
+
   i18n: {
     defaultLocale: "de",
     locales: ["de", "en"],
@@ -14,6 +17,7 @@ export default defineConfig({
       redirectToDefaultLocale: false,
     },
   },
+
   vite: {
     plugins: [
       tailwindcss(),
@@ -36,4 +40,6 @@ export default defineConfig({
       },
     ],
   },
+
+  adapter: cloudflare(),
 });
