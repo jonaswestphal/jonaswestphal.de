@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "Optimize SEO & Content",
+  "description": "When triggered manually, analyzes all website text content in src/lib/content.ts and page files for SEO optimization opportunities. Reviews meta descriptions, headings, keyword usage, content structure, and suggests improvements for both German and English content.",
+  "version": "1",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Perform a comprehensive SEO and content optimization review for the website. Read and analyze:\n\n1. **src/lib/content.ts** — Review ALL text content in both DE and EN locales:\n   - Meta titles and descriptions (length, keyword placement, call-to-action)\n   - Hero headline and subheadline (clarity, value proposition, keyword density)\n   - Service descriptions (specificity, benefit-oriented language, keywords)\n   - FAQ questions and answers (search intent alignment, long-tail keywords)\n   - CTA button labels (action-oriented, urgency)\n\n2. **src/components/SEOHead.astro** — Review structured data and meta tags:\n   - JSON-LD completeness and accuracy\n   - Open Graph tags optimization\n   - hreflang implementation\n\n3. **src/pages/datenschutz.astro** and **src/pages/en/privacy.astro** — Legal page SEO\n4. **src/pages/impressum.astro** and **src/pages/en/impressum.astro** — Legal page SEO\n\nFor each finding, provide:\n- What the current text is\n- What the optimized version should be\n- Why the change improves SEO (keyword targeting, search intent, readability)\n\nFocus on:\n- German SEO keywords: \"IT-Beratung\", \"Automatisierung\", \"n8n\", \"Managed Hosting\", \"Systemadministrator\", \"Cloud Solutions\", \"KMU\", \"Startup\"\n- English SEO keywords: \"IT consulting\", \"automation\", \"managed hosting\", \"cloud solutions\", \"SME\", \"startup\"\n- Meta description length (150-160 chars)\n- Title tag length (50-60 chars)\n- Heading hierarchy and keyword placement\n- Internal linking opportunities\n\nAfter analysis, implement the improvements directly in the code files. Then run `pnpm test` to verify content completeness tests still pass, and `pnpm build` to verify the build."
+  }
+}

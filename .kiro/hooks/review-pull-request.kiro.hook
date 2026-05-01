@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "Review Pull Request",
+  "description": "When triggered manually, reviews the current git diff for potential issues — checks for breaking changes, verifies tests pass, and validates the build. Useful for reviewing Dependabot PRs or any code changes before merging.",
+  "version": "1",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Review the current git diff (use `git diff` or `git diff HEAD~1`) for potential issues. Specifically:\n\n1. Run `pnpm test` and `cd worker && pnpm test` to verify all tests pass\n2. Run `pnpm build` to verify the build succeeds\n3. Check the diff for:\n   - Breaking changes in dependencies (major version bumps)\n   - Removed or changed APIs that other code depends on\n   - Security concerns (new dependencies, changed permissions)\n   - Any TypeScript errors or type mismatches\n4. Summarize findings: what changed, whether it's safe to merge, and any concerns.\n\nIf this is a Dependabot PR (dependency update), focus on whether the version bump is compatible and tests still pass."
+  }
+}

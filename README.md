@@ -1,174 +1,230 @@
-# Astro Validation Landing
-[![Astro Themes](https://img.shields.io/badge/Featured_on-Astro_Themes-orange?logo=astro&logoColor=white)](https://astro.build/themes/details/astro-validation-landing/)
+# Jonas Westphal – IT & Cloud Solutions
 
-[![GitHub stars](https://img.shields.io/github/stars/Sebasala/astro-validation-landing?style=social)](https://github.com/Sebasala/astro-validation-landing)
+> Corporate website for [www.jonaswestphal.de](https://www.jonaswestphal.de) — bilingual (DE/EN), GDPR-compliant, statically generated.
 
-Astro Validation Landing is a conversion-focused landing page starter for validating product ideas quickly.
-It combines Astro, Tailwind CSS v4, and Starwind UI primitives into a modular page that is easy to customize.
+![Astro](https://img.shields.io/badge/Astro_6-FF5D01?logo=astro&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS_4-06B6D4?logo=tailwindcss&logoColor=white)
+![Cloudflare](https://img.shields.io/badge/Cloudflare_Pages-F38020?logo=cloudflare&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![Tests](https://img.shields.io/badge/Tests-95_passing-brightgreen)
 
-![Astro Validation Landing Screenshot](image.png)
+---
 
-## Why
+## Overview
 
-When launching a new product, validating your idea with real users before investing in development is crucial.
-A well-designed landing page can help you collect emails, gauge interest, and get feedback on your concept.
-This starter provides a solid foundation to create a compelling landing page without starting from scratch.
+A professional one-page marketing site for IT consulting, automation, and managed hosting services. Built with Astro 6, Tailwind CSS v4, and Starwind UI. Hosted on Cloudflare Pages with a Cloudflare Worker backend for the contact form.
 
-## What Is Included
+### Key Features
 
-- A complete one-page validation flow: Header, Hero, Problem/Solution, Features, How It Works, Testimonials, CTA, FAQ, Footer.
-- Mobile-first responsive layout and dark mode support.
-- SEO-ready layout tags (title, description, canonical, Open Graph, Twitter card).
-- Centralized content configuration in a single file for fast copy updates.
-- Tailwind CSS v4 design tokens with CSS variables for light and dark themes.
+- 🌐 **Bilingual** — German (default) and English with Astro i18n routing
+- 🌙 **Dark/Light Mode** — System preference detection + manual toggle
+- 📬 **Contact Form** — Cloudflare Worker + Turnstile bot protection + rate limiting + Resend email
+- 🍪 **GDPR/TTDSG Compliant** — Cookie consent banner, GA4 opt-in only, complete privacy policy
+- 🔍 **SEO Optimized** — Sitemap, robots.txt, hreflang, JSON-LD structured data, Open Graph
+- ♿ **Accessible** — Semantic HTML, ARIA labels, keyboard navigation, color contrast
+- 🧪 **95 Tests** — Property-based testing (fast-check) + unit tests (Vitest)
+- 🚀 **CI/CD** — GitHub Actions for deployment + Dependabot for dependency updates
+
+---
 
 ## Tech Stack
 
-- [Astro 6](https://astro.build/)
-- [Tailwind CSS v4](https://tailwindcss.com/)
-- [Starwind UI](https://starwind.dev/) component primitives
-- TypeScript (strict Astro config)
+| Layer | Technology |
+|-------|-----------|
+| Framework | [Astro 6](https://astro.build/) (static site generation) |
+| Styling | [Tailwind CSS 4](https://tailwindcss.com/) + [Starwind UI](https://starwind.dev/) |
+| Language | TypeScript (strict mode) |
+| Hosting | [Cloudflare Pages](https://pages.cloudflare.com/) (free tier) |
+| Contact API | [Cloudflare Workers](https://workers.cloudflare.com/) |
+| Bot Protection | [Cloudflare Turnstile](https://www.cloudflare.com/products/turnstile/) |
+| Email | [Resend API](https://resend.com/) |
+| Analytics | Google Analytics 4 (consent-gated) + Cloudflare Web Analytics (cookieless) |
+| Testing | [Vitest](https://vitest.dev/) + [fast-check](https://github.com/dubzzz/fast-check) |
+| CI/CD | GitHub Actions + Dependabot |
 
-## Quick Start
+---
 
-[![View Live Demo](https://img.shields.io/badge/View-Live_Demo-blue)](https://astro-validation-landing.netlify.app/)
-[![Deploy with Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/Sebasala/astro-validation-landing)
+## Getting Started
 
 ### Prerequisites
 
-- Node.js +22.12.0
-- pnpm 10+
+- **Node.js** ≥ 22.12.0
+- **pnpm** ≥ 10 (`corepack enable` to activate)
 
-### Install And Run
+### Setup
 
 ```bash
+# Clone the repository
+git clone https://github.com/jonaswestphal/jonaswestphal.de.git
+cd jonaswestphal.de
+
+# Install frontend dependencies
 pnpm install
+
+# Install worker dependencies
+cd worker && pnpm install && cd ..
+
+# Start development server
 pnpm dev
 ```
 
-Open the local URL shown in your terminal (Astro defaults to `http://localhost:4321`).
+Open [http://localhost:4321](http://localhost:4321) in your browser.
 
-### Build And Preview
+### Restore Dev Environment (from scratch)
+
+If you're setting up on a new machine:
 
 ```bash
+# 1. Ensure Node.js 22+ is installed
+node --version  # should be ≥ 22.12.0
+
+# 2. Enable corepack for pnpm
+corepack enable
+
+# 3. Install all dependencies
+pnpm install
+cd worker && pnpm install && cd ..
+
+# 4. Run tests to verify everything works
+pnpm test
+cd worker && pnpm test && cd ..
+
+# 5. Build to verify
 pnpm build
-pnpm preview
+
+# 6. Start dev server
+pnpm dev
 ```
 
-## Available Scripts
+---
 
-- `pnpm dev` - Start local dev server.
-- `pnpm build` - Build production output to `dist/`.
-- `pnpm preview` - Preview the production build locally.
-- `pnpm astro ...` - Run Astro CLI commands directly.
+## Available Commands
+
+### Frontend (root directory)
+
+| Command | Description |
+|---------|-------------|
+| `pnpm dev` | Start Astro dev server on port 4321 |
+| `pnpm build` | Production build to `dist/` |
+| `pnpm preview` | Preview production build locally |
+| `pnpm test` | Run frontend tests (Vitest) |
+
+### Worker (`worker/` directory)
+
+| Command | Description |
+|---------|-------------|
+| `pnpm dev` | Start local worker dev server |
+| `pnpm test` | Run worker tests (Vitest) |
+| `pnpm deploy` | Deploy worker to Cloudflare |
+
+---
 
 ## Project Structure
 
-```text
-.
-|- public/
-|  |- favicon.ico
-|  |- launch.svg
-|- src/
-|  |- components/
-|  |  |- Header.astro
-|  |  |- Hero.astro
-|  |  |- Description.astro
-|  |  |- Features.astro
-|  |  |- HowItWorks.astro
-|  |  |- Testimonials.astro
-|  |  |- CTA.astro
-|  |  |- FAQ.astro
-|  |  |- Footer.astro
-|  |  |- starwind/
-|  |- layouts/
-|  |  |- Layout.astro
-|  |- lib/
-|  |  |- content.ts
-|  |- pages/
-|  |  |- index.astro
-|  |- styles/
-|  |  |- starwind.css
-|- astro.config.mjs
-|- starwind.config.json
+```
+├── src/
+│   ├── components/          # Astro components (Hero, Services, FAQ, etc.)
+│   │   └── starwind/        # Starwind UI primitives (managed by CLI)
+│   ├── layouts/
+│   │   └── Layout.astro     # Base layout (SEO, theme, analytics, header/footer)
+│   ├── lib/
+│   │   ├── content.ts       # All site text, organized by locale (de/en)
+│   │   ├── i18n.ts          # Locale detection and path helpers
+│   │   ├── types.ts         # TypeScript interfaces
+│   │   └── __tests__/       # Frontend tests
+│   ├── pages/
+│   │   ├── index.astro      # German homepage (/)
+│   │   ├── en/index.astro   # English homepage (/en/)
+│   │   └── ...              # Legal pages, error pages, thank-you pages
+│   └── styles/
+│       └── starwind.css     # Design tokens + corporate identity
+├── worker/                  # Cloudflare Worker (contact form backend)
+│   ├── src/
+│   │   ├── index.ts         # Entry point, CORS, routing
+│   │   ├── validation.ts    # Form validation
+│   │   ├── turnstile.ts     # Bot protection
+│   │   ├── rate-limiter.ts  # KV-based rate limiting
+│   │   ├── email.ts         # Resend API integration
+│   │   └── __tests__/       # Worker tests
+│   └── wrangler.toml        # Worker configuration
+├── .github/
+│   ├── workflows/           # CI/CD pipelines
+│   └── dependabot.yml       # Automated dependency updates
+├── public/                  # Static assets (favicon, robots.txt, _headers)
+└── astro.config.mjs         # Astro config (i18n, sitemap, Tailwind)
 ```
 
-## Customization Guide
+---
 
-### 1) Update Site Content
+## Content Management
 
-Most page copy and links live in `src/lib/content.ts`.
+All text content lives in `src/lib/content.ts` — one typed object per locale. To update copy:
 
-Update these exported objects to customize the landing page:
+1. Edit the `de` or `en` object in `content.ts`
+2. Run `pnpm test` to verify content completeness (property-based tests check all fields)
+3. Run `pnpm build` to regenerate static pages
 
-- `siteConfig`: SEO title/description and Open Graph image path.
-- `header`: nav links and header CTA.
-- `hero`: headline, subheadline, primary/secondary CTA labels and links.
-- `problem` and `solution`: long-form narrative blocks.
-- `features`: section heading and feature cards.
-- `howItWorks`: three-step process content.
-- `testimonials`: quote cards.
-- `cta`: final conversion block copy and button label/link.
-- `faq`: accordion questions and answers.
-- `footer`: legal links, brand copy, and social URLs.
+No CMS needed. Content changes trigger a rebuild via CI/CD on push to `main`.
 
-### 2) Update Theme And Design Tokens
+---
 
-Edit `src/styles/starwind.css` to customize:
+## Deployment
 
-- Light and dark color tokens (`:root` and `.dark`).
-- Radius scale (`--radius`, `--radius-*`).
-- Semantic variables used by components (`--primary`, `--muted`, etc.).
+### Cloudflare Pages (Website)
 
-Tailwind v4 is configured through Vite in `astro.config.mjs`.
+Deployed automatically via GitHub Actions on push to `main`:
 
-### 3) Replace Branding Assets
+1. Tests run
+2. Astro builds static pages
+3. `wrangler pages deploy` pushes to Cloudflare Pages
 
-- Replace the placeholder logo SVG in `src/components/Logo.astro`.
-- Replace favicon assets in `public/favicon.ico` and `public/launch.svg`.
-- Add your Open Graph image and point `siteConfig.image` to it (for example `public/og-image.png`).
+### Cloudflare Worker (Contact Form)
 
-### 4) Built-in Lead Capture with Netlify Forms
+Deployed automatically when files in `worker/` change:
 
-Validating an idea requires collecting emails. We've made this incredibly easy using Netlify Forms. No external services, no API keys, and no backend code required.
-How to use it:
-In your CTA.astro component, add the data-netlify="true" attribute to your form element.
+1. Worker tests run
+2. `wrangler deploy` pushes to Cloudflare Workers
 
-```Html
-<form name="newsletter" method="POST" data-netlify="true">
-  <input type="email" name="email" placeholder="Enter your email" required />
-  <button type="submit">Get Early Access</button>
-</form>
+### Required Secrets (GitHub)
+
+| Secret | Description |
+|--------|-------------|
+| `CLOUDFLARE_API_TOKEN` | Cloudflare API token with Pages + Workers permissions |
+| `CLOUDFLARE_ACCOUNT_ID` | Your Cloudflare account ID |
+
+### Required Worker Secrets (Wrangler)
+
+```bash
+wrangler secret put TURNSTILE_SECRET_KEY
+wrangler secret put RESEND_API_KEY
 ```
 
-That's it. When you deploy to Netlify, they will automatically detect the form. You will see all your email signups directly in your Netlify Dashboard under the "Forms" tab.
-Note: If you prefer to use an external service like Mailchimp or ConvertKit later, you can simply remove the data-netlify attribute and point the form action to your service provider's URL.
+---
 
-### 5) Wire The CTA To Your Email Tool
+## Testing
 
-`src/components/CTA.astro` currently renders a form to capture leads directly in Netlify.
-To collect data on other platforms or services you can connect the form to your own provider (Mailchimp, ConvertKit, Brevo, Formspree, custom endpoint, etc.) and handling submit.
+95 tests across frontend and worker:
 
-## Section Anchor Map
+```bash
+# Frontend tests (57 tests)
+pnpm test
 
-The page includes these section IDs for in-page navigation:
+# Worker tests (38 tests)
+cd worker && pnpm test
+```
 
-- `#hero`
-- `#features`
-- `#how-it-works`
-- `#cta`
-- `#faq`
-- `#testimonials`
+### Property-Based Tests (fast-check)
 
-Update header/footer links in `src/lib/content.ts` if you rename or reorder sections.
+| Property | What it verifies |
+|----------|-----------------|
+| Locale content completeness | Every text field in every locale is non-empty |
+| i18n path roundtrip | `getLocalizedPath` → `getLocaleFromUrl` preserves locale |
+| Timeline structure | Both locales have matching timeline entries |
+| Form validation | Missing fields are correctly detected |
+| Email validation | Valid/invalid emails are correctly classified |
 
-## Deployment Notes
+---
 
-This project builds to static assets and can be deployed to any static host (Netlify, Vercel static output, Cloudflare Pages, GitHub Pages, etc.).
+## License
 
-Before deploying:
-
-1. Set your production site URL in `astro.config.mjs` using Astro's `site` option.
-2. Replace placeholder logos/icons and social links.
-3. Wire up your email capture flow in the CTA section.
-4. Ensure legal links in the footer point to real pages.
+MIT — see [LICENSE.md](LICENSE.md)
