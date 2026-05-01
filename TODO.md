@@ -49,10 +49,8 @@
 7. [x] Folgende Variablen setzen:
    - `BASIC_AUTH_USER` = Benutzername
    - `BASIC_AUTH_PASS` = Passwort
-8. [ ] **Custom Domain** fuer Preview hinzufuegen: `dev.jonaswestphal.de`
-   - Pages Dashboard → **Custom domains** → **Set up a custom domain**
-   - `dev.jonaswestphal.de` eingeben → Cloudflare erstellt den DNS-Eintrag automatisch
-9. [ ] Testen: `dev.jonaswestphal.de` aufrufen → Basic Auth Dialog muss erscheinen
+8. [x] **Custom Domain** fuer Preview hinzugefuegt: `dev.jonaswestphal.de`
+9. [x] Basic Auth funktioniert auf `dev.jonaswestphal.de`
 
 > Die Middleware in `functions/_middleware.js` prueft den Hostnamen. Auf `www.jonaswestphal.de` und `jonaswestphal.de` wird **kein** Auth verlangt. Auf allen anderen Hosts greift Basic Auth.
 
@@ -83,8 +81,11 @@
 ## 5. Cloudflare Turnstile (Bot-Schutz)
 
 1. [x] Im Cloudflare Dashboard: **Turnstile** → **Add Widget** erstellt
-2. [x] Domains hinzugefuegt: `www.jonaswestphal.de`, `dev.jonaswestphal.de`, `localhost`
-3. [x] **Site Key** in `src/components/Contact.astro` eingetragen (`data-sitekey="0x4AAAAAADHJ7JtBo-u2Hran"`)
+2. [x] Domains hinzugefuegt: `www.jonaswestphal.de`, `dev.jonaswestphal.de`, `localhost`, `jonaswestphal-de.pages.dev`
+3. [ ] **Site Key** in `src/components/Contact.astro` — **PROBLEM: Error 400020 (Invalid sitekey)**
+   - Aktuell: Test-Key `1x00000000000000000000AA` eingesetzt zur Diagnose
+   - Dein Key `0x4AAAAAADHJ7JtBo-u2Hran` verursacht 400020
+   - **Naechster Schritt:** Pruefen ob Test-Key funktioniert. Falls ja: neues Turnstile Widget erstellen und neuen Key verwenden
 4. [x] **Secret Key** im Worker als Secret hinterlegt (`TURNSTILE_SECRET_KEY`)
 
 > **Empfehlung:** Turnstile Secret Key im Dashboard rotieren, da er einmal im Chat sichtbar war.
@@ -152,14 +153,14 @@
 
 ## 9. Google Analytics (GA4)
 
-1. [ ] [Google Analytics 4](https://analytics.google.com/) Property erstellen
-2. [ ] **Measurement ID** (Format: `G-XXXXXXXXXX`) kopieren
-3. [ ] Measurement ID in **zwei Dateien** ersetzen:
-   - `src/layouts/Layout.astro` — Zeile mit `var gtagId = "G-XXXXXXXXXX";`
-   - `src/components/CookieConsent.astro` — Zeile mit `const gtagId = "G-XXXXXXXXXX";`
+1. [x] Google Analytics 4 Property erstellt
+2. [x] Measurement ID: `G-WP95NLRJ61`
+3. [x] Measurement ID in beiden Dateien eingetragen:
+   - `src/layouts/Layout.astro` ✅
+   - `src/components/CookieConsent.astro` ✅
 4. [ ] In GA4 Einstellungen:
    - **Google Signals**: Deaktivieren
-   - **Datenspeicherung**: Auf 2 Monate setzen
+   - **Datenspeicherung**: Auf 2 Monate setzen --> ERLEDIGT
    - **Anzeigenpersonalisierung**: Deaktivieren
 
 ---
@@ -213,9 +214,9 @@
 
 | Datei | Platzhalter | Status |
 |-------|------------|--------|
-| `src/components/Contact.astro` | Turnstile Site Key | ✅ Eingetragen |
-| `src/layouts/Layout.astro` | `G-XXXXXXXXXX` | ⬜ GA4 Measurement ID fehlt |
-| `src/components/CookieConsent.astro` | `G-XXXXXXXXXX` | ⬜ GA4 Measurement ID fehlt |
+| `src/components/Contact.astro` | Turnstile Site Key | ⚠️ Test-Key aktiv, Production Key verursacht 400020 |
+| `src/layouts/Layout.astro` | GA4 Measurement ID | ✅ `G-WP95NLRJ61` eingetragen |
+| `src/components/CookieConsent.astro` | GA4 Measurement ID | ✅ `G-WP95NLRJ61` eingetragen |
 | `worker/wrangler.toml` | KV Namespace ID | ✅ Eingetragen |
 | `src/pages/impressum.astro` | Postanschrift | ⬜ Fehlt |
 | `src/pages/en/impressum.astro` | Postal address | ⬜ Fehlt |
