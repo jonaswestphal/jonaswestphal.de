@@ -76,8 +76,18 @@ export async function sendEmail(
       body,
     });
 
+    if (!response.ok) {
+      const errorBody = await response.text();
+      console.error("SES API error", {
+        status: response.status,
+        statusText: response.statusText,
+        body: errorBody,
+      });
+    }
+
     return response.ok;
-  } catch {
+  } catch (err) {
+    console.error("SES request exception", err);
     return false;
   }
 }

@@ -159,6 +159,13 @@ export default {
       );
 
       if (!emailSent) {
+        console.error("SES email sending failed", {
+          region: env.AWS_REGION,
+          emailTo: env.EMAIL_TO,
+          emailFrom: env.EMAIL_FROM,
+          hasAccessKey: !!env.AWS_ACCESS_KEY_ID,
+          hasSecretKey: !!env.AWS_SECRET_ACCESS_KEY,
+        });
         return jsonResponse(
           { success: false, error: "Failed to send message" },
           500,
