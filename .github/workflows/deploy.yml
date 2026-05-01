@@ -1,12 +1,16 @@
-name: Deploy Website
+name: Deploy Worker
 
 on:
   push:
-    branches: [main, dev]
+    branches: [main]
+    paths: [worker/**]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: worker
     steps:
       - uses: actions/checkout@v6
 
@@ -21,25 +25,10 @@ jobs:
 
       - run: pnpm test
 
-      - run: pnpm build
-
-      # Production deployment (main branch)
-      - name: Deploy to Production
-        if: github.ref == 'refs/heads/main'
-        uses: cloudflare/wrangler-action@v3
+      - uses: cloudflare/wrangler-action@v3
         with:
-          command: pages deploy dist --project-name=jonaswestphal-de --branch=main
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          wranglerVersion: "4"
-          packageManager: "pnpm"
-
-      # Preview deployment (dev branch)
-      - name: Deploy to Preview
-        if: github.ref == 'refs/heads/dev'
-        uses: cloudflare/wrangler-action@v3
-        with:
-          command: pages deploy dist --project-name=jonaswestphal-de --branch=dev
+          command: deploy
+          workingDirectory: worker
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           wranglerVersion: "4"
