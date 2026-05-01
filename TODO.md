@@ -1,17 +1,10 @@
-# TODO — Manuelle Schritte vor Go-Live
+# TODO — Offene Schritte vor Go-Live
 
-> Diese Datei listet alle manuellen Schritte auf, die vor der Veroeffentlichung der Website erledigt werden muessen.
-> Hake erledigte Punkte ab, indem du `[ ]` durch `[x]` ersetzt.
-
----
-
-## 1. GitHub CLI authentifizieren
-
-- [x] `gh auth login` ausfuehren (fuer PR-Review-Hook und Deployments)
+> Nur noch offene Punkte. Erledigte Schritte wurden entfernt.
 
 ---
 
-## 2. Persoenliche Daten in rechtlichen Seiten ergaenzen
+## 1. Persoenliche Daten in rechtlichen Seiten ergaenzen
 
 ### Impressum (DE + EN)
 
@@ -27,192 +20,52 @@
 
 ---
 
-## 3. Cloudflare Pages — Projekt per Git-Import anlegen
+## 2. Google Analytics — Datenschutz-Einstellungen
 
-### Schritt-fuer-Schritt: Repo importieren
-
-1. [x] Im [Cloudflare Dashboard](https://dash.cloudflare.com/) → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**
-2. [x] GitHub-Account verbinden und das Repo `jonaswestphal/jonaswestphal.de` auswaehlen
-3. [x] Build-Einstellungen konfigurieren:
-   - **Production branch**: `main`
-   - **Framework preset**: `Astro`
-   - **Build command**: `pnpm install --frozen-lockfile && pnpm build`
-   - **Build output directory**: `dist`
-   - **Root directory**: _(leer lassen)_
-   - **Node.js version**: Unter "Environment variables" setzen: `NODE_VERSION` = `22`
-4. [x] Projekt-Name: `jonaswestphal-de`
-5. [x] **Save and Deploy** klicken
-
-### Dev-Preview mit Basic Auth einrichten
-
-6. [x] Im Cloudflare Pages Dashboard → **Settings** → **Variables and Secrets**
-7. [x] Folgende Variablen setzen:
-   - `BASIC_AUTH_USER` = Benutzername
-   - `BASIC_AUTH_PASS` = Passwort
-8. [x] **Custom Domain** fuer Preview hinzugefuegt: `dev.jonaswestphal.de`
-9. [x] Basic Auth funktioniert auf `dev.jonaswestphal.de`
-
-> Die Middleware in `functions/_middleware.js` prueft den Hostnamen. Auf `www.jonaswestphal.de` und `jonaswestphal.de` wird **kein** Auth verlangt. Auf allen anderen Hosts greift Basic Auth.
-
-### Production Domain (erst beim Go-Live)
-
-10. [ ] **Custom Domain** `www.jonaswestphal.de` hinzufuegen (erst wenn du die bestehende Seite abloesen willst)
-11. [ ] DNS-Eintraege bei Cloudflare konfigurieren (CNAME fuer `www` → Pages-Projekt)
-12. [ ] Optional: Redirect von `jonaswestphal.de` (ohne www) auf `www.jonaswestphal.de` einrichten
+- [ ] In GA4: **Anzeigenpersonalisierung** deaktivieren
 
 ---
 
-## 4. GitHub Secrets fuer CI/CD
+## 3. Google Search Console
 
-### Cloudflare API Token erstellen
-
-1. [x] Im Cloudflare Dashboard: **My Profile** → **API Tokens** → **Create Token**
-2. [x] Template **Edit Cloudflare Workers** auswaehlen
-3. [x] Berechtigungen: Account/Cloudflare Pages/Edit, Account/Workers Scripts/Edit, Zone/Workers Routes/Edit
-4. [x] Token erstellen und kopieren
-
-### In GitHub hinterlegen
-
-5. [x] `CLOUDFLARE_API_TOKEN` als **GitHub Repository Secret** hinterlegt
-6. [x] `CLOUDFLARE_ACCOUNT_ID` als **GitHub Repository Secret** hinterlegt
+- [ ] [Google Search Console](https://search.google.com/search-console/) → Domain `jonaswestphal.de` hinzufuegen
+- [ ] DNS-Verifizierung: TXT-Record bei Cloudflare anlegen
+- [ ] Sitemap einreichen: `https://www.jonaswestphal.de/sitemap-index.xml`
 
 ---
 
-## 5. Cloudflare Turnstile (Bot-Schutz)
+## 4. Go-Live: Bestehende Website abloesen
 
-1. [x] Im Cloudflare Dashboard: **Turnstile** → **Add Widget** erstellt
-2. [x] Domains hinzugefuegt: `www.jonaswestphal.de`, `dev.jonaswestphal.de`, `localhost`, `jonaswestphal-de.pages.dev`
-3. [x] **Site Key** in `src/components/Contact.astro` eingetragen (`0x4AAAAAADHLjI7ijWjqpUev`)
-4. [x] **Secret Key** im Worker als Secret hinterlegt (`TURNSTILE_SECRET_KEY`)
-
----
-
-## 6. Amazon SES (E-Mail-Versand)
-
-### 6a. Domain verifizieren
-
-1. [x] AWS SES Console (Region: `eu-central-1`) → Domain `jonaswestphal.de` verifiziert
-2. [x] DKIM DNS Records (3x CNAME) bei Cloudflare eingetragen (Proxy: DNS only)
-3. [x] Domain-Status: Verified
-
-### 6b. Sandbox-Modus
-
-4. [x] Empfaenger-E-Mail `business@jonaswestphal.de` verifiziert (oder Production Access beantragt)
-
-### 6c. IAM User erstellen
-
-5. [x] IAM User `jonaswestphal-contact-worker` erstellt
-6. [x] Policy `SES-SendEmail-jonaswestphal` mit `ses:SendEmail` + `ses:SendRawEmail` angehaengt
-
-### 6d. Access Keys
-
-7. [x] Access Key ID und Secret Access Key erstellt
-
-### 6e. Credentials als Worker Secrets
-
-8. [x] `AWS_ACCESS_KEY_ID` im Worker als Secret hinterlegt
-9. [x] `AWS_SECRET_ACCESS_KEY` im Worker als Secret hinterlegt
-
-### 6f. Konfiguration
-
-10. [x] `worker/wrangler.toml` pruefen:
-    - `EMAIL_TO` = `business@jonaswestphal.de`
-    - `EMAIL_FROM` = `business@jonaswestphal.de`
-    - `AWS_REGION` = `eu-central-1`
-
----
-
-## 7. Cloudflare KV Namespace (Rate Limiting)
-
-1. [x] KV Namespace erstellt: `contact-form-worker-RATE_LIMIT`
-2. [x] Namespace ID in `worker/wrangler.toml` eingetragen: `dc929f39eca149b1afb2bc7b4b2be8d4`
-
----
-
-## 8. Worker deployen
-
-1. [x] Worker erstmalig via `npx wrangler deploy` deployed
-2. [x] Custom Domain fuer Worker eingerichtet: `contact.jonaswestphal.de`
-3. [x] Kontaktformular End-to-End getestet: Turnstile ✅, SES E-Mail ✅, Danke-Seite ✅
-
----
-
-## 9. Google Analytics (GA4)
-
-1. [x] Google Analytics 4 Property erstellt
-2. [x] Measurement ID: `G-WP95NLRJ61`
-3. [x] Measurement ID in beiden Dateien eingetragen:
-   - `src/layouts/Layout.astro` ✅
-   - `src/components/CookieConsent.astro` ✅
-4. [ ] In GA4 Einstellungen:
-   - **Google Signals**: Deaktivieren --> ist nicht aktiv - erledigt
-   - **Datenspeicherung**: Auf 2 Monate setzen --> ERLEDIGT
-   - **Anzeigenpersonalisierung**: Deaktivieren
-
----
-
-## 10. Google Search Console
-
-1. [ ] [Google Search Console](https://search.google.com/search-console/) → Domain `jonaswestphal.de` hinzufuegen
-2. [ ] DNS-Verifizierung: TXT-Record bei Cloudflare anlegen
-3. [ ] Sitemap einreichen: `https://www.jonaswestphal.de/sitemap-index.xml`
-
----
-
-## 11. Dev-Preview testen
-
-1. [ ] Auf `dev` Branch pushen → GitHub Actions pruefen
-2. [ ] `dev.jonaswestphal.de` aufrufen → Basic Auth Dialog muss erscheinen
-3. [ ] Nach Login pruefen:
-   - [ ] Deutsche Startseite laedt korrekt
-   - [ ] Englische Seite unter `/en/` erreichbar
-   - [ ] Sprachwechsler funktioniert
-   - [ ] Dark/Light Mode Toggle funktioniert
-   - [ ] Cookie-Banner erscheint beim ersten Besuch
-   - [ ] Impressum und Datenschutz erreichbar
-   - [ ] 404-Seite bei ungueltigem Pfad
-   - [ ] Mobile Navigation (Hamburger-Menue)
-   - [ ] Kontaktformular: Turnstile-Widget wird angezeigt
-   - [ ] Kontaktformular: Test-Nachricht absenden → E-Mail muss ankommen
-   - [ ] Kontaktformular: Weiterleitung zur Danke-Seite
-
----
-
-## 12. Go-Live: Bestehende Website abloesen
-
-1. [ ] Custom Domain `www.jonaswestphal.de` im Pages-Projekt hinzufuegen
+1. [ ] Custom Domain `www.jonaswestphal.de` im Cloudflare Pages-Projekt hinzufuegen
 2. [ ] DNS umstellen (CNAME `www` → Pages-Projekt)
-3. [ ] Alte Website deaktivieren
-4. [ ] `dev` Branch in `main` mergen → automatisches Production Deployment
+3. [ ] Optional: Redirect von `jonaswestphal.de` (ohne www) auf `www.jonaswestphal.de`
+4. [ ] Alte Website deaktivieren
 5. [ ] `www.jonaswestphal.de` aufrufen und finalen Check durchfuehren
 6. [ ] Google Search Console Sitemap einreichen
 
 ---
 
-## 13. Optional: Cloudflare Web Analytics
+## Architektur-Uebersicht
 
-1. [ ] Im Cloudflare Dashboard: **Analytics & Logs** → **Web Analytics** → Domain aktivieren
-2. [ ] Cookieless, keine Einwilligung noetig (DSGVO-konform)
+| Komponente | Dienst | Status |
+|------------|--------|--------|
+| Website Hosting | Cloudflare Pages (Git-Integration, baut bei Push auf `main`) | ✅ |
+| Dev-Preview | `dev.jonaswestphal.de` mit Basic Auth | ✅ |
+| Worker Deploy | GitHub Actions (bei Aenderungen in `worker/`) | ✅ |
+| CI Tests | GitHub Actions (bei Pull Requests) | ✅ |
+| Kontaktformular | Cloudflare Worker `contact-form-worker` | ✅ |
+| Bot-Schutz | Cloudflare Turnstile | ✅ |
+| E-Mail-Versand | Amazon SES (eu-central-1) | ✅ |
+| Rate Limiting | Cloudflare KV | ✅ |
+| Google Analytics | GA4 `G-WP95NLRJ61` (nur nach Cookie-Consent) | ✅ |
+| Cloudflare Web Analytics | Cookieless, DSGVO-konform | ✅ |
+| Build Cache | Cloudflare Pages Build Cache | ✅ |
 
----
+## Offene Platzhalter im Code
 
-## Zusammenfassung der Platzhalter im Code
-
-| Datei | Platzhalter | Status |
-|-------|------------|--------|
-| `src/components/Contact.astro` | Turnstile Site Key | ✅ `0x4AAAAAADHLjI7ijWjqpUev` |
-| `src/layouts/Layout.astro` | GA4 Measurement ID | ✅ `G-WP95NLRJ61` eingetragen |
-| `src/components/CookieConsent.astro` | GA4 Measurement ID | ✅ `G-WP95NLRJ61` eingetragen |
-| `worker/wrangler.toml` | KV Namespace ID | ✅ Eingetragen |
-| `src/pages/impressum.astro` | Postanschrift | ⬜ Fehlt |
-| `src/pages/en/impressum.astro` | Postal address | ⬜ Fehlt |
-| `src/pages/datenschutz.astro` | Postanschrift | ⬜ Fehlt |
-| `src/pages/en/privacy.astro` | Postal address | ⬜ Fehlt |
-
-## Worker Secrets (im Cloudflare Dashboard gesetzt)
-
-| Secret | Status |
-|--------|--------|
-| `TURNSTILE_SECRET_KEY` | ✅ Gesetzt |
-| `AWS_ACCESS_KEY_ID` | ✅ Gesetzt |
-| `AWS_SECRET_ACCESS_KEY` | ✅ Gesetzt |
+| Datei | Was fehlt |
+|-------|----------|
+| `src/pages/impressum.astro` | Postanschrift, USt-IdNr. |
+| `src/pages/en/impressum.astro` | Postal address, VAT ID |
+| `src/pages/datenschutz.astro` | Postanschrift |
+| `src/pages/en/privacy.astro` | Postal address |
