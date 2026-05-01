@@ -20,7 +20,10 @@ const ALLOWED_ORIGINS = [
   "https://jonaswestphal.de",
 ];
 
-const DEV_ORIGINS = ["http://localhost:4321"];
+const DEV_ORIGINS = [
+  "http://localhost:4321",
+  "https://dev.jonaswestphal.de",
+];
 
 function getAllowedOrigin(request: Request): string | null {
   const origin = request.headers.get("Origin");
