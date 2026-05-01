@@ -226,7 +226,7 @@ export const de: LocaleContent = {
     sectionSubtitle:
       "Haben Sie ein IT-Projekt oder eine Frage zu Automatisierung und Hosting? Schreiben Sie mir – ich melde mich zeitnah bei Ihnen.",
     emailLabel: "Oder direkt per E-Mail:",
-    emailAddress: "kontakt@jonaswestphal.de",
+    emailAddress: "business@jonaswestphal.de",
     form: {
       namePlaceholder: "Ihr Name",
       emailPlaceholder: "Ihre E-Mail-Adresse",
@@ -259,7 +259,7 @@ export const de: LocaleContent = {
       },
     ],
     contactInfo: {
-      email: "kontakt@jonaswestphal.de",
+      email: "business@jonaswestphal.de",
     },
     cookieSettingsLabel: "Cookie-Einstellungen",
     copyright: `© ${new Date().getFullYear()} Jonas Westphal. Alle Rechte vorbehalten.`,
@@ -534,7 +534,7 @@ export const en: LocaleContent = {
     sectionSubtitle:
       "Have an IT project or a question about automation and hosting? Write to me – I'll get back to you promptly.",
     emailLabel: "Or reach out directly via email:",
-    emailAddress: "kontakt@jonaswestphal.de",
+    emailAddress: "business@jonaswestphal.de",
     form: {
       namePlaceholder: "Your Name",
       emailPlaceholder: "Your Email Address",
@@ -567,7 +567,7 @@ export const en: LocaleContent = {
       },
     ],
     contactInfo: {
-      email: "kontakt@jonaswestphal.de",
+      email: "business@jonaswestphal.de",
     },
     cookieSettingsLabel: "Cookie Settings",
     copyright: `© ${new Date().getFullYear()} Jonas Westphal. All rights reserved.`,

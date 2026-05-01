@@ -40,7 +40,7 @@ function buildJsonLd(siteConfig: SiteConfig) {
     description: siteConfig.description,
     logo: `${siteUrl}/favicon.svg`,
     image: ogImageUrl,
-    email: "kontakt@jonaswestphal.de",
+    email: "business@jonaswestphal.de",
     priceRange: "$$",
     address: {
       "@type": "PostalAddress",

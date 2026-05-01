@@ -2,7 +2,7 @@ name: Deploy Website
 
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
 
 jobs:
   deploy:
@@ -23,8 +23,20 @@ jobs:
 
       - run: pnpm build
 
-      - uses: cloudflare/wrangler-action@v3
+      # Production deployment (main branch)
+      - name: Deploy to Production
+        if: github.ref == 'refs/heads/main'
+        uses: cloudflare/wrangler-action@v3
         with:
-          command: pages deploy dist --project-name=jonaswestphal-de
+          command: pages deploy dist --project-name=jonaswestphal-de --branch=main
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      # Preview deployment (dev branch → dev.jonaswestphal.de)
+      - name: Deploy to Preview
+        if: github.ref == 'refs/heads/dev'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          command: pages deploy dist --project-name=jonaswestphal-de --branch=dev
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

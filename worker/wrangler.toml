@@ -3,8 +3,8 @@ main = "src/index.ts"
 compatibility_date = "2025-06-01"
 
 [vars]
-EMAIL_TO = "kontakt@jonaswestphal.de"
-EMAIL_FROM = "noreply@jonaswestphal.de"
+EMAIL_TO = "business@jonaswestphal.de"
+EMAIL_FROM = "business@jonaswestphal.de"
 AWS_REGION = "eu-central-1"
 
 # KV Namespace for rate limiting
@@ -12,7 +12,7 @@ AWS_REGION = "eu-central-1"
 # wrangler kv:namespace create RATE_LIMIT
 [[kv_namespaces]]
 binding = "RATE_LIMIT"
-id = "PLACEHOLDER_KV_NAMESPACE_ID"
+id = "dc929f39eca149b1afb2bc7b4b2be8d4"
 
 # Secrets (set via `wrangler secret put`):
 # - TURNSTILE_SECRET_KEY
