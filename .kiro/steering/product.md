@@ -8,7 +8,7 @@ Single-page marketing site showcasing IT services (n8n workflow automation, AI w
 ## Key Features
 - Bilingual content: German (default) and English
 - Dark/light theme toggle
-- Contact form with Cloudflare Turnstile bot protection, rate limiting, and email delivery via Resend API
+- Contact form with Cloudflare Turnstile bot protection, rate limiting, and email delivery via Amazon SES
 - Cookie consent banner with granular category control (necessary, analytics)
 - SEO: Open Graph, Twitter Cards, hreflang tags, JSON-LD structured data, sitemap
 - Responsive design with mobile hamburger menu

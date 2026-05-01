@@ -54,17 +54,20 @@
 
 ---
 
-## 5. Resend API (E-Mail-Versand)
+## 5. Amazon SES (E-Mail-Versand)
 
-- [ ] [Resend](https://resend.com/) Account erstellen
-- [ ] **API Key** generieren
-- [ ] **Absender-Domain** verifizieren (z.B. `jonaswestphal.de`)
-- [ ] API Key als Worker Secret setzen:
+- [ ] [AWS Console](https://console.aws.amazon.com/ses/) aufrufen (Region: `eu-central-1`)
+- [ ] **Absender-E-Mail oder Domain** verifizieren (z.B. `jonaswestphal.de` oder `noreply@jonaswestphal.de`)
+- [ ] Falls noch im Sandbox-Modus: **Production Access** beantragen
+- [ ] **IAM User** erstellen mit `ses:SendEmail` Permission (oder bestehenden verwenden)
+- [ ] **Access Key ID** und **Secret Access Key** als Worker Secrets setzen:
   ```bash
   cd worker
-  wrangler secret put RESEND_API_KEY
+  wrangler secret put AWS_ACCESS_KEY_ID
+  wrangler secret put AWS_SECRET_ACCESS_KEY
   ```
-- [ ] Optional: `EMAIL_TO` und `EMAIL_FROM` in `worker/wrangler.toml` anpassen (aktuell: `kontakt@jonaswestphal.de` / `noreply@jonaswestphal.de`)
+- [ ] Optional: `AWS_REGION` in `worker/wrangler.toml` anpassen (aktuell: `eu-central-1`)
+- [ ] Optional: `EMAIL_TO` und `EMAIL_FROM` in `worker/wrangler.toml` anpassen
 
 ---
 

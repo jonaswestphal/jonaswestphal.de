@@ -34,11 +34,18 @@ const enUrl = `${siteUrl}/en${basePath === "/" ? "/" : basePath}`;
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": ["Organization", "LocalBusiness"],
+  "@id": `${siteUrl}/#organization`,
   name: "Jonas Westphal – IT & Cloud Solutions",
   url: siteUrl,
   description: siteConfig.description,
   logo: `${siteUrl}/favicon.svg`,
+  image: ogImageUrl,
   email: "kontakt@jonaswestphal.de",
+  priceRange: "$$",
+  address: {
+    "@type": "PostalAddress",
+    addressCountry: "DE",
+  },
   sameAs: [
     "https://www.linkedin.com/in/jonaswestphal",
     "https://github.com/jonaswestphal",
@@ -46,18 +53,35 @@ const jsonLd = {
   founder: {
     "@type": "Person",
     name: "Jonas Westphal",
+    jobTitle: siteConfig.locale === "de" ? "IT-Berater & Systemadministrator" : "IT Consultant & System Administrator",
+    knowsAbout: [
+      "IT Infrastructure",
+      "n8n Workflow Automation",
+      "AI Workflows",
+      "Managed Hosting",
+      "Baramundi Endpoint Management",
+      "Cloud Solutions",
+      "Windows Server",
+      "Linux",
+      "Proxmox",
+      "Docker",
+    ],
   },
   areaServed: {
     "@type": "Country",
     name: "Germany",
   },
+  knowsLanguage: ["de", "en"],
   serviceType: [
     "IT Consulting",
+    "IT-Beratung",
     "Cloud Solutions",
     "n8n Workflow Automation",
     "AI Workflow Automation",
     "Managed Hosting",
     "Startup Consulting",
+    "Baramundi Endpoint Management",
+    "System Administration",
   ],
 };
 ---

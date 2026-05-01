@@ -24,7 +24,9 @@ function createMockEnv(): Env {
     TURNSTILE_SECRET_KEY: "test-secret",
     EMAIL_TO: "test@example.com",
     EMAIL_FROM: "noreply@example.com",
-    RESEND_API_KEY: "test-api-key",
+    AWS_ACCESS_KEY_ID: "AKIAIOSFODNN7EXAMPLE",
+    AWS_SECRET_ACCESS_KEY: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+    AWS_REGION: "eu-central-1",
     RATE_LIMIT: createMockKV(),
   };
 }
@@ -115,7 +117,7 @@ describe("CORS handling", () => {
       if (urlStr.includes("turnstile")) {
         return new Response(JSON.stringify({ success: true }), { status: 200 });
       }
-      if (urlStr.includes("resend")) {
+      if (urlStr.includes("resend") || urlStr.includes("amazonaws.com")) {
         return new Response(JSON.stringify({ id: "123" }), { status: 200 });
       }
       return originalFetch(url);
@@ -236,7 +238,7 @@ describe("Request routing", () => {
       if (urlStr.includes("turnstile")) {
         return new Response(JSON.stringify({ success: true }), { status: 200 });
       }
-      if (urlStr.includes("resend")) {
+      if (urlStr.includes("resend") || urlStr.includes("amazonaws.com")) {
         return new Response(JSON.stringify({ id: "email-123" }), { status: 200 });
       }
       return originalFetch(url);
@@ -271,7 +273,7 @@ describe("Request routing", () => {
       if (urlStr.includes("turnstile")) {
         return new Response(JSON.stringify({ success: true }), { status: 200 });
       }
-      if (urlStr.includes("resend")) {
+      if (urlStr.includes("resend") || urlStr.includes("amazonaws.com")) {
         return new Response(JSON.stringify({ error: "Failed" }), { status: 500 });
       }
       return originalFetch(url);
@@ -316,18 +318,20 @@ describe("Rate limiter integration", () => {
       getWithMetadata: vi.fn(async () => ({ value: null, metadata: null, cacheStatus: null })),
     } as unknown as KVNamespace;
 
-    // Pre-fill the rate limit store with 5 requests
+    // Pre-fill the rate limit store with max total attempts
     const now = Math.floor(Date.now() / 1000);
     store.set(
       "rate-limit:127.0.0.1",
-      JSON.stringify({ count: 5, windowStart: now }),
+      JSON.stringify({ total: 10, successful: 3, windowStart: now }),
     );
 
     const env: Env = {
       TURNSTILE_SECRET_KEY: "test-secret",
       EMAIL_TO: "test@example.com",
       EMAIL_FROM: "noreply@example.com",
-      RESEND_API_KEY: "test-api-key",
+      AWS_ACCESS_KEY_ID: "AKIAIOSFODNN7EXAMPLE",
+      AWS_SECRET_ACCESS_KEY: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+      AWS_REGION: "eu-central-1",
       RATE_LIMIT: mockKV,
     };
 

@@ -12,7 +12,7 @@
 ## Backend (Contact Form Worker)
 - **Runtime**: Cloudflare Workers
 - **Tooling**: Wrangler CLI
-- **Email**: Resend API
+- **Email**: Amazon SES
 - **Bot Protection**: Cloudflare Turnstile
 - **Rate Limiting**: Cloudflare KV
 - **Webhooks**: Optional fire-and-forget webhook dispatch

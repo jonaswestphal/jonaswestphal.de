@@ -29,14 +29,23 @@ function buildHreflangUrls(currentPath: string) {
 
 // Replicate the SEOHead JSON-LD generation logic
 function buildJsonLd(siteConfig: SiteConfig) {
+  const siteUrl = "https://www.jonaswestphal.de";
+  const ogImageUrl = new URL(siteConfig.image, siteUrl).href;
   return {
     "@context": "https://schema.org",
     "@type": ["Organization", "LocalBusiness"],
+    "@id": `${siteUrl}/#organization`,
     name: "Jonas Westphal – IT & Cloud Solutions",
     url: siteUrl,
     description: siteConfig.description,
     logo: `${siteUrl}/favicon.svg`,
+    image: ogImageUrl,
     email: "kontakt@jonaswestphal.de",
+    priceRange: "$$",
+    address: {
+      "@type": "PostalAddress",
+      addressCountry: "DE",
+    },
     sameAs: [
       "https://www.linkedin.com/in/jonaswestphal",
       "https://github.com/jonaswestphal",
@@ -44,18 +53,35 @@ function buildJsonLd(siteConfig: SiteConfig) {
     founder: {
       "@type": "Person",
       name: "Jonas Westphal",
+      jobTitle: siteConfig.locale === "de" ? "IT-Berater & Systemadministrator" : "IT Consultant & System Administrator",
+      knowsAbout: [
+        "IT Infrastructure",
+        "n8n Workflow Automation",
+        "AI Workflows",
+        "Managed Hosting",
+        "Baramundi Endpoint Management",
+        "Cloud Solutions",
+        "Windows Server",
+        "Linux",
+        "Proxmox",
+        "Docker",
+      ],
     },
     areaServed: {
       "@type": "Country",
       name: "Germany",
     },
+    knowsLanguage: ["de", "en"],
     serviceType: [
       "IT Consulting",
+      "IT-Beratung",
       "Cloud Solutions",
       "n8n Workflow Automation",
       "AI Workflow Automation",
       "Managed Hosting",
       "Startup Consulting",
+      "Baramundi Endpoint Management",
+      "System Administration",
     ],
   };
 }
@@ -135,6 +161,33 @@ describe("SEO: JSON-LD structured data", () => {
     expect(jsonLd.founder).toBeDefined();
     expect(jsonLd.founder["@type"]).toBe("Person");
     expect(jsonLd.founder.name).toBeTruthy();
+    expect(jsonLd.founder.jobTitle).toBeTruthy();
+    expect(Array.isArray(jsonLd.founder.knowsAbout)).toBe(true);
+    expect(jsonLd.founder.knowsAbout.length).toBeGreaterThan(0);
+  });
+
+  it("includes @id for entity disambiguation", () => {
+    const jsonLd = buildJsonLd(de.siteConfig);
+    expect(jsonLd["@id"]).toBe("https://www.jonaswestphal.de/#organization");
+  });
+
+  it("includes address with country for LocalBusiness", () => {
+    const jsonLd = buildJsonLd(de.siteConfig);
+    expect(jsonLd.address).toBeDefined();
+    expect(jsonLd.address["@type"]).toBe("PostalAddress");
+    expect(jsonLd.address.addressCountry).toBe("DE");
+  });
+
+  it("includes priceRange for LocalBusiness", () => {
+    const jsonLd = buildJsonLd(de.siteConfig);
+    expect(jsonLd.priceRange).toBeTruthy();
+  });
+
+  it("includes knowsLanguage", () => {
+    const jsonLd = buildJsonLd(de.siteConfig);
+    expect(Array.isArray(jsonLd.knowsLanguage)).toBe(true);
+    expect(jsonLd.knowsLanguage).toContain("de");
+    expect(jsonLd.knowsLanguage).toContain("en");
   });
 
   it("includes areaServed as a Country type", () => {

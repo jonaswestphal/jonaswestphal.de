@@ -5,6 +5,7 @@ compatibility_date = "2025-06-01"
 [vars]
 EMAIL_TO = "kontakt@jonaswestphal.de"
 EMAIL_FROM = "noreply@jonaswestphal.de"
+AWS_REGION = "eu-central-1"
 
 # KV Namespace for rate limiting
 # Replace the id with the actual KV namespace ID after running:
@@ -15,4 +16,5 @@ id = "PLACEHOLDER_KV_NAMESPACE_ID"
 
 # Secrets (set via `wrangler secret put`):
 # - TURNSTILE_SECRET_KEY
-# - RESEND_API_KEY
+# - AWS_ACCESS_KEY_ID
+# - AWS_SECRET_ACCESS_KEY

@@ -82,11 +82,17 @@ const thankYouUrl = locale === "en" ? "/en/thank-you" : "/danke";
           <p class="text-sm text-destructive hidden" data-error="message"></p>
         </div>
 
+        <!-- Honeypot field (hidden from humans, bots fill it in) -->
+        <div class="hidden" aria-hidden="true">
+          <label for="contact-website">Website</label>
+          <input type="text" id="contact-website" name="website" tabindex="-1" autocomplete="off" />
+        </div>
+
         <!-- Cloudflare Turnstile Widget -->
         <div class="cf-turnstile" data-sitekey="YOUR_TURNSTILE_SITE_KEY" data-theme="auto"></div>
 
         <!-- Submit Button -->
-        <Button type="submit" variant="primary" class="w-full">
+        <Button type="submit" variant="primary" class="w-full" id="contact-submit">
           {contact.form.submitLabel}
         </Button>
 
@@ -196,15 +202,25 @@ const thankYouUrl = locale === "en" ? "/en/thank-you" : "/danke";
       e.preventDefault();
       clearAllErrors();
 
+      // Honeypot check — if filled, silently reject (bot detected)
+      const honeypot = form.querySelector('[name="website"]') as HTMLInputElement;
+      if (honeypot && honeypot.value) {
+        // Fake success to not reveal detection
+        successEl?.classList.remove("hidden");
+        return;
+      }
+
       if (!validateForm()) {
         return;
       }
 
-      const submitBtn = form.querySelector('[type="submit"]') as HTMLButtonElement;
+      const submitBtn = document.getElementById("contact-submit") as HTMLButtonElement;
       submitBtn.disabled = true;
 
       try {
         const formData = new FormData(form);
+        // Remove honeypot field from submission
+        formData.delete("website");
         const data = Object.fromEntries(formData.entries());
 
         const response = await fetch("https://contact.jonaswestphal.de/api/contact", {
@@ -220,13 +236,20 @@ const thankYouUrl = locale === "en" ? "/en/thank-you" : "/danke";
           setTimeout(() => {
             window.location.href = thankYouUrl;
           }, 1500);
+        } else if (response.status === 429) {
+          // Rate limited — show specific message
+          errorEl!.textContent = form.dataset.rateLimitError || "Zu viele Anfragen. Bitte versuchen Sie es später erneut.";
+          errorEl?.classList.remove("hidden");
         } else {
           errorEl?.classList.remove("hidden");
         }
       } catch {
         errorEl?.classList.remove("hidden");
       } finally {
-        submitBtn.disabled = false;
+        // Keep button disabled for 10 seconds to prevent rapid resubmission
+        setTimeout(() => {
+          submitBtn.disabled = false;
+        }, 10000);
       }
     });
 

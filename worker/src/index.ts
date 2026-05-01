@@ -1,6 +1,6 @@
 import { validateContactForm } from "./validation";
 import { verifyTurnstileToken } from "./turnstile";
-import { checkRateLimit } from "./rate-limiter";
+import { checkRateLimit, recordSuccessfulSubmission } from "./rate-limiter";
 import { sendEmail } from "./email";
 import { dispatchWebhooks } from "./webhook";
 
@@ -8,7 +8,9 @@ export interface Env {
   TURNSTILE_SECRET_KEY: string;
   EMAIL_TO: string;
   EMAIL_FROM: string;
-  RESEND_API_KEY: string;
+  AWS_ACCESS_KEY_ID: string;
+  AWS_SECRET_ACCESS_KEY: string;
+  AWS_REGION: string;
   RATE_LIMIT: KVNamespace;
   WEBHOOK_URLS?: string;
 }
@@ -111,6 +113,12 @@ export default {
       // 2. Parse and validate form data
       const formData = await request.json<Record<string, string>>();
       const validation = validateContactForm(formData);
+
+      // Honeypot triggered — silently accept to not reveal detection
+      if (validation.honeypotTriggered) {
+        return jsonResponse({ success: true }, 200, origin);
+      }
+
       if (!validation.valid) {
         return jsonResponse(
           { success: false, errors: validation.errors },
@@ -133,14 +141,16 @@ export default {
         );
       }
 
-      // 4. Send email notification
+      // 4. Send email notification via Amazon SES
       const emailSent = await sendEmail(
         {
           name: formData.name,
           email: formData.email,
           message: formData.message,
         },
-        env.RESEND_API_KEY,
+        env.AWS_ACCESS_KEY_ID,
+        env.AWS_SECRET_ACCESS_KEY,
+        env.AWS_REGION,
         env.EMAIL_TO,
         env.EMAIL_FROM,
       );
@@ -152,6 +162,9 @@ export default {
           origin,
         );
       }
+
+      // 4b. Record successful submission for stricter rate limiting
+      await recordSuccessfulSubmission(env.RATE_LIMIT, clientIp);
 
       // 5. Dispatch webhooks (fire-and-forget, non-blocking)
       if (env.WEBHOOK_URLS) {

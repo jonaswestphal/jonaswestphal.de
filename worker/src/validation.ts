@@ -2,22 +2,33 @@ export interface ContactFormData {
   name: string;
   email: string;
   message: string;
+  website?: string; // Honeypot field — should always be empty
   "cf-turnstile-response": string;
 }
 
 export interface ValidationResult {
   valid: boolean;
   errors: Record<string, string>;
+  honeypotTriggered?: boolean;
 }
 
 /**
  * Validates contact form data.
- * Checks required fields (name, email, message) and Turnstile token presence.
+ * Checks honeypot, required fields (name, email, message) and Turnstile token presence.
  * Returns validation result with field-specific error messages.
  */
 export function validateContactForm(
   data: Partial<ContactFormData>,
 ): ValidationResult {
+  // Honeypot check — if the hidden "website" field has a value, it's a bot
+  if (data.website && data.website.trim().length > 0) {
+    return {
+      valid: false,
+      errors: {},
+      honeypotTriggered: true,
+    };
+  }
+
   const errors: Record<string, string> = {};
 
   if (!data.name || data.name.trim().length === 0) {

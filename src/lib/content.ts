@@ -9,9 +9,9 @@ import type { LocaleContent, Locale } from "./types";
 
 export const de: LocaleContent = {
   siteConfig: {
-    title: "Jonas Westphal – IT & Cloud Solutions",
+    title: "Jonas Westphal – IT-Beratung, Automatisierung & Cloud Solutions",
     description:
-      "Professionelle IT-Beratung, Automatisierung mit n8n und KI sowie Managed Hosting. Über 10 Jahre Erfahrung in IT-Infrastruktur für KMU und Startups.",
+      "IT-Beratung, n8n-Automatisierung, KI-Workflows & Managed Hosting für KMU und Startups. Über 10 Jahre Erfahrung. Jetzt unverbindlich anfragen.",
     image: "/og-image.svg",
     url: "https://www.jonaswestphal.de",
     locale: "de",
@@ -28,17 +28,17 @@ export const de: LocaleContent = {
       { label: "Kontakt", href: "#contact" },
     ],
     cta: {
-      label: "Kontakt aufnehmen",
+      label: "Kostenlos beraten lassen",
       href: "#contact",
     },
   },
 
   hero: {
-    headline: "IT-Lösungen, die Ihr Unternehmen voranbringen",
+    headline: "IT-Beratung & Automatisierung für KMU und Startups",
     subheadline:
-      "Automatisierung, KI-gestützte Workflows und maßgeschneidertes Hosting – damit Sie sich auf Ihr Kerngeschäft konzentrieren können.",
+      "n8n-Workflows, KI-gestützte Automatisierung und Managed Hosting – damit Sie sich auf Ihr Kerngeschäft konzentrieren können.",
     primaryCta: {
-      label: "Jetzt Kontakt aufnehmen",
+      label: "Jetzt unverbindlich anfragen",
       href: "#contact",
     },
     secondaryCta: {
@@ -50,31 +50,31 @@ export const de: LocaleContent = {
   services: {
     sectionTitle: "Dienstleistungen",
     sectionSubtitle:
-      "Maßgeschneiderte IT-Lösungen für Ihr Unternehmen – von Automatisierung bis Hosting.",
+      "Maßgeschneiderte IT-Lösungen für Ihr Unternehmen – von n8n-Automatisierung bis Managed Hosting.",
     items: [
       {
         icon: "workflow",
-        title: "n8n Workflows",
+        title: "n8n Workflow-Automatisierung",
         description:
-          "Automatisierungslösungen für Ihre Geschäftsprozesse. Ich verbinde Ihre Tools und Systeme zu effizienten, automatisierten Abläufen mit n8n.",
+          "Automatisieren Sie Ihre Geschäftsprozesse mit n8n. Ich verbinde Ihre Tools und Systeme zu effizienten, automatisierten Abläufen – ohne manuellen Aufwand.",
       },
       {
         icon: "brain",
-        title: "AI Workflows",
+        title: "KI-gestützte Workflows",
         description:
-          "Intelligente Automatisierung und KI-gestützte Prozessoptimierung. Nutzen Sie das Potenzial von künstlicher Intelligenz für Ihr Unternehmen.",
+          "Intelligente Automatisierung mit künstlicher Intelligenz. Optimieren Sie Ihre Prozesse durch KI-Workflows und steigern Sie die Effizienz Ihres Unternehmens.",
       },
       {
         icon: "rocket",
-        title: "Beratung und Unterstützung von Startups",
+        title: "Startup-Beratung & IT-Strategie",
         description:
-          "Strategische Technologieberatung und Implementierung für Startups. Von der Infrastrukturplanung bis zur Umsetzung – ich begleite Sie auf dem Weg zum Erfolg.",
+          "Strategische IT-Beratung und Implementierung für Startups. Von der Infrastrukturplanung bis zur Umsetzung – pragmatisch, skalierbar und kosteneffizient.",
       },
       {
         icon: "server",
         title: "Managed Hosting nach Maß",
         description:
-          "Individuelle Hosting-Lösungen für Websites, n8n Community Instanzen und mehr. Zuverlässig, sicher und auf Ihre Bedürfnisse zugeschnitten.",
+          "Individuelle Hosting-Lösungen für Websites, n8n-Instanzen und mehr. Zuverlässig, sicher und auf Ihre Anforderungen zugeschnitten – inklusive Monitoring und Support.",
       },
     ],
   },
@@ -82,9 +82,9 @@ export const de: LocaleContent = {
   profile: {
     sectionTitle: "Über mich",
     introduction:
-      "Ich bin Jonas Westphal, ein erfahrener Systemadministrator mit über 10 Jahren Berufserfahrung im Aufbau, Betrieb und der Optimierung von IT-Infrastrukturen. Mein Schwerpunkt liegt auf kleinen bis mittelständischen Unternehmen sowie Startups.",
+      "Ich bin Jonas Westphal, erfahrener Systemadministrator und IT-Berater mit über 10 Jahren Berufserfahrung im Aufbau, Betrieb und der Optimierung von IT-Infrastrukturen. Mein Schwerpunkt liegt auf kleinen bis mittelständischen Unternehmen (KMU) sowie Startups mit bis zu 400 Mitarbeitenden.",
     experienceSummary:
-      "Neben meiner Haupttätigkeit biete ich als Selbstständiger Beratung und KI-gestützte Automatisierungslösungen an. Mein Ziel ist es, Unternehmen mit pragmatischen, stabilen und skalierbaren Lösungen zu unterstützen.",
+      "Neben meiner Haupttätigkeit biete ich als Selbstständiger IT-Beratung, n8n-Automatisierung und KI-gestützte Workflow-Lösungen an. Mein Ziel: pragmatische, stabile und skalierbare Lösungen, die Kosten senken und Prozesse optimieren.",
     technicalStack: [
       {
         category: "Betriebssysteme",
@@ -160,7 +160,7 @@ export const de: LocaleContent = {
   howItWorks: {
     sectionTitle: "So funktioniert's",
     sectionSubtitle:
-      "In drei einfachen Schritten zu Ihrer individuellen IT-Lösung.",
+      "In drei einfachen Schritten zu Ihrer individuellen IT-Lösung – von der Beratung bis zum laufenden Betrieb.",
     steps: [
       {
         stepNumber: 1,
@@ -186,27 +186,37 @@ export const de: LocaleContent = {
   faq: {
     sectionTitle: "Häufig gestellte Fragen",
     sectionSubtitle:
-      "Antworten auf die wichtigsten Fragen zu meinen Dienstleistungen.",
+      "Antworten auf die wichtigsten Fragen zu IT-Beratung, Automatisierung und Managed Hosting.",
     items: [
       {
-        question: "Welche Dienstleistungen bieten Sie an?",
+        question: "Welche IT-Dienstleistungen bieten Sie für KMU und Startups an?",
         answer:
-          "Ich biete n8n Workflow-Automatisierung, KI-gestützte Prozessoptimierung, Beratung für Startups sowie maßgeschneidertes Managed Hosting an. Darüber hinaus unterstütze ich bei IT-Infrastruktur-Projekten und Baramundi Endpoint Management.",
+          "Ich biete n8n Workflow-Automatisierung, KI-gestützte Prozessoptimierung, IT-Beratung für Startups sowie maßgeschneidertes Managed Hosting an. Darüber hinaus unterstütze ich bei IT-Infrastruktur-Projekten, Baramundi Endpoint Management und Cloud-Migrationen.",
       },
       {
-        question: "Wie sieht Ihr Preismodell aus?",
+        question: "Was kostet IT-Beratung und Automatisierung?",
         answer:
           "Meine Preise richten sich nach dem Umfang und der Komplexität des Projekts. Nach einem unverbindlichen Erstgespräch erstelle ich Ihnen ein transparentes Angebot. Für laufende Dienstleistungen wie Managed Hosting biete ich monatliche Pauschalen an.",
       },
       {
-        question: "Wie schnell sind Sie verfügbar?",
+        question: "Was ist n8n und wie hilft es meinem Unternehmen?",
+        answer:
+          "n8n ist eine Open-Source-Plattform für Workflow-Automatisierung. Damit lassen sich wiederkehrende Geschäftsprozesse automatisieren, Tools miteinander verbinden und manuelle Aufwände reduzieren. Ich richte n8n-Workflows individuell für Ihre Anforderungen ein – von einfachen Benachrichtigungen bis zu komplexen KI-gestützten Prozessen.",
+      },
+      {
+        question: "Wie schnell sind Sie für ein IT-Projekt verfügbar?",
         answer:
           "Da ich nebenberuflich selbstständig bin, plane ich Projekte sorgfältig und kommuniziere realistische Zeitrahmen. Für dringende Anfragen finden wir gemeinsam eine Lösung. Kontaktieren Sie mich gerne für eine aktuelle Verfügbarkeitsauskunft.",
       },
       {
-        question: "Wie läuft die Zusammenarbeit ab?",
+        question: "Wie läuft die Zusammenarbeit bei einem IT-Projekt ab?",
         answer:
           "Die Zusammenarbeit beginnt mit einem unverbindlichen Erstgespräch, in dem wir Ihre Anforderungen besprechen. Danach erstelle ich ein Konzept, setze die Lösung um und begleite Sie im laufenden Betrieb. Transparenz und regelmäßige Kommunikation sind mir dabei besonders wichtig.",
+      },
+      {
+        question: "Bieten Sie auch Managed Hosting für n8n an?",
+        answer:
+          "Ja, ich biete individuelles Managed Hosting für n8n Community Instanzen, Websites und andere Anwendungen an. Das Hosting umfasst Einrichtung, Monitoring, Backups, Updates und Support – alles aus einer Hand, zuverlässig und kosteneffizient.",
       },
     ],
   },
@@ -214,7 +224,7 @@ export const de: LocaleContent = {
   contact: {
     sectionTitle: "Kontakt",
     sectionSubtitle:
-      "Haben Sie ein Projekt oder eine Frage? Schreiben Sie mir – ich melde mich zeitnah bei Ihnen.",
+      "Haben Sie ein IT-Projekt oder eine Frage zu Automatisierung und Hosting? Schreiben Sie mir – ich melde mich zeitnah bei Ihnen.",
     emailLabel: "Oder direkt per E-Mail:",
     emailAddress: "kontakt@jonaswestphal.de",
     form: {
@@ -307,9 +317,9 @@ export const de: LocaleContent = {
 
 export const en: LocaleContent = {
   siteConfig: {
-    title: "Jonas Westphal – IT & Cloud Solutions",
+    title: "Jonas Westphal – IT Consulting, Automation & Cloud Solutions",
     description:
-      "Professional IT consulting, automation with n8n and AI, and managed hosting. Over 10 years of experience in IT infrastructure for SMEs and startups.",
+      "IT consulting, n8n automation, AI workflows & managed hosting for SMEs and startups. Over 10 years of experience. Get in touch today.",
     image: "/og-image.svg",
     url: "https://www.jonaswestphal.de/en/",
     locale: "en",
@@ -326,17 +336,17 @@ export const en: LocaleContent = {
       { label: "Contact", href: "#contact" },
     ],
     cta: {
-      label: "Get in Touch",
+      label: "Free Consultation",
       href: "#contact",
     },
   },
 
   hero: {
-    headline: "IT Solutions That Drive Your Business Forward",
+    headline: "IT Consulting & Automation for SMEs and Startups",
     subheadline:
-      "Automation, AI-powered workflows, and custom hosting – so you can focus on what matters most.",
+      "n8n workflows, AI-powered automation, and managed hosting – so you can focus on what matters most.",
     primaryCta: {
-      label: "Get in Touch",
+      label: "Request a Free Consultation",
       href: "#contact",
     },
     secondaryCta: {
@@ -348,31 +358,31 @@ export const en: LocaleContent = {
   services: {
     sectionTitle: "Services",
     sectionSubtitle:
-      "Tailored IT solutions for your business – from automation to hosting.",
+      "Tailored IT solutions for your business – from n8n automation to managed hosting.",
     items: [
       {
         icon: "workflow",
-        title: "n8n Workflows",
+        title: "n8n Workflow Automation",
         description:
-          "Automation solutions for your business processes. I connect your tools and systems into efficient, automated workflows using n8n.",
+          "Automate your business processes with n8n. I connect your tools and systems into efficient, automated workflows – eliminating manual effort.",
       },
       {
         icon: "brain",
-        title: "AI Workflows",
+        title: "AI-Powered Workflows",
         description:
-          "Intelligent automation and AI-powered process optimization. Leverage the potential of artificial intelligence for your business.",
+          "Intelligent automation with artificial intelligence. Optimize your processes through AI workflows and boost your business efficiency.",
       },
       {
         icon: "rocket",
-        title: "Startup Consulting & Support",
+        title: "Startup Consulting & IT Strategy",
         description:
-          "Strategic technology consulting and implementation for startups. From infrastructure planning to execution – I guide you on the path to success.",
+          "Strategic IT consulting and implementation for startups. From infrastructure planning to execution – pragmatic, scalable, and cost-efficient.",
       },
       {
         icon: "server",
         title: "Custom Managed Hosting",
         description:
-          "Tailored hosting solutions for websites, n8n community instances, and more. Reliable, secure, and customized to your needs.",
+          "Tailored hosting solutions for websites, n8n instances, and more. Reliable, secure, and customized to your needs – including monitoring and support.",
       },
     ],
   },
@@ -380,9 +390,9 @@ export const en: LocaleContent = {
   profile: {
     sectionTitle: "About Me",
     introduction:
-      "I'm Jonas Westphal, an experienced system administrator with over 10 years of professional experience in designing, operating, and optimizing IT infrastructures. My focus is on small to medium-sized businesses and startups.",
+      "I'm Jonas Westphal, an experienced system administrator and IT consultant with over 10 years of professional experience in designing, operating, and optimizing IT infrastructures. My focus is on small to medium-sized businesses (SMEs) and startups with up to 400 employees.",
     experienceSummary:
-      "Alongside my main role, I offer consulting and AI-driven automation solutions as a freelancer. My goal is to support businesses with pragmatic, stable, and scalable solutions.",
+      "Alongside my main role, I offer IT consulting, n8n automation, and AI-driven workflow solutions as a freelancer. My goal: pragmatic, stable, and scalable solutions that reduce costs and optimize processes.",
     technicalStack: [
       {
         category: "Operating Systems",
@@ -458,7 +468,7 @@ export const en: LocaleContent = {
   howItWorks: {
     sectionTitle: "How It Works",
     sectionSubtitle:
-      "Three simple steps to your custom IT solution.",
+      "Three simple steps to your custom IT solution – from consulting to ongoing operations.",
     steps: [
       {
         stepNumber: 1,
@@ -484,27 +494,37 @@ export const en: LocaleContent = {
   faq: {
     sectionTitle: "Frequently Asked Questions",
     sectionSubtitle:
-      "Answers to the most important questions about my services.",
+      "Answers to the most important questions about IT consulting, automation, and managed hosting.",
     items: [
       {
-        question: "What services do you offer?",
+        question: "What IT services do you offer for SMEs and startups?",
         answer:
-          "I offer n8n workflow automation, AI-powered process optimization, consulting for startups, and custom managed hosting. Additionally, I support IT infrastructure projects and Baramundi endpoint management.",
+          "I offer n8n workflow automation, AI-powered process optimization, IT consulting for startups, and custom managed hosting. Additionally, I support IT infrastructure projects, Baramundi endpoint management, and cloud migrations.",
       },
       {
-        question: "What is your pricing model?",
+        question: "What does IT consulting and automation cost?",
         answer:
           "My pricing depends on the scope and complexity of the project. After a no-obligation initial consultation, I provide a transparent quote. For ongoing services like managed hosting, I offer monthly flat rates.",
       },
       {
-        question: "How quickly are you available?",
+        question: "What is n8n and how can it help my business?",
+        answer:
+          "n8n is an open-source workflow automation platform. It allows you to automate recurring business processes, connect tools, and reduce manual effort. I set up n8n workflows tailored to your needs – from simple notifications to complex AI-powered processes.",
+      },
+      {
+        question: "How quickly are you available for an IT project?",
         answer:
           "As I work freelance alongside my main role, I plan projects carefully and communicate realistic timelines. For urgent requests, we find a solution together. Feel free to contact me for current availability.",
       },
       {
-        question: "How does the collaboration process work?",
+        question: "How does the collaboration process work for IT projects?",
         answer:
           "The collaboration starts with a no-obligation initial consultation where we discuss your requirements. Then I create a concept, implement the solution, and support you in ongoing operations. Transparency and regular communication are especially important to me.",
+      },
+      {
+        question: "Do you offer managed hosting for n8n?",
+        answer:
+          "Yes, I offer custom managed hosting for n8n community instances, websites, and other applications. The hosting includes setup, monitoring, backups, updates, and support – all from a single source, reliable and cost-efficient.",
       },
     ],
   },
@@ -512,7 +532,7 @@ export const en: LocaleContent = {
   contact: {
     sectionTitle: "Contact",
     sectionSubtitle:
-      "Have a project or a question? Write to me – I'll get back to you promptly.",
+      "Have an IT project or a question about automation and hosting? Write to me – I'll get back to you promptly.",
     emailLabel: "Or reach out directly via email:",
     emailAddress: "kontakt@jonaswestphal.de",
     form: {
@@ -634,7 +654,7 @@ export const hero = {
   secondaryCta: de.hero.secondaryCta,
   image: {
     src: "/images/hero-illustration.png",
-    alt: "Hero illustration",
+    alt: "IT-Beratung und Automatisierung – Jonas Westphal",
   },
 };
 
@@ -683,13 +703,13 @@ export const testimonials = {
 export const problem = {
   headline: "IT-Herausforderungen im Alltag",
   description:
-    "Viele Unternehmen kämpfen mit manuellen Prozessen, unzuverlässiger Infrastruktur und fehlender Automatisierung.",
+    "Viele KMU und Startups kämpfen mit manuellen Prozessen, unzuverlässiger Infrastruktur und fehlender Automatisierung.",
 };
 
 export const solution = {
-  headline: "Professionelle IT-Lösungen",
+  headline: "Professionelle IT-Beratung & Automatisierung",
   description:
-    "Mit über 10 Jahren Erfahrung biete ich maßgeschneiderte Lösungen für Automatisierung, Hosting und IT-Infrastruktur.",
+    "Mit über 10 Jahren Erfahrung biete ich maßgeschneiderte Lösungen für n8n-Automatisierung, Managed Hosting und IT-Infrastruktur.",
 };
 
 export const footer = {

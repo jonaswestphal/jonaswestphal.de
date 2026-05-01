@@ -18,7 +18,7 @@ A professional one-page marketing site for IT consulting, automation, and manage
 
 - 🌐 **Bilingual** — German (default) and English with Astro i18n routing
 - 🌙 **Dark/Light Mode** — System preference detection + manual toggle
-- 📬 **Contact Form** — Cloudflare Worker + Turnstile bot protection + rate limiting + Resend email
+- 📬 **Contact Form** — Cloudflare Worker + Turnstile bot protection + rate limiting + Amazon SES email
 - 🍪 **GDPR/TTDSG Compliant** — Cookie consent banner, GA4 opt-in only, complete privacy policy
 - 🔍 **SEO Optimized** — Sitemap, robots.txt, hreflang, JSON-LD structured data, Open Graph
 - ♿ **Accessible** — Semantic HTML, ARIA labels, keyboard navigation, color contrast
@@ -37,7 +37,7 @@ A professional one-page marketing site for IT consulting, automation, and manage
 | Hosting | [Cloudflare Pages](https://pages.cloudflare.com/) (free tier) |
 | Contact API | [Cloudflare Workers](https://workers.cloudflare.com/) |
 | Bot Protection | [Cloudflare Turnstile](https://www.cloudflare.com/products/turnstile/) |
-| Email | [Resend API](https://resend.com/) |
+| Email | [Amazon SES](https://aws.amazon.com/ses/) |
 | Analytics | Google Analytics 4 (consent-gated) + Cloudflare Web Analytics (cookieless) |
 | Testing | [Vitest](https://vitest.dev/) + [fast-check](https://github.com/dubzzz/fast-check) |
 | CI/CD | GitHub Actions + Dependabot |
@@ -144,7 +144,7 @@ pnpm dev
 │   │   ├── validation.ts    # Form validation
 │   │   ├── turnstile.ts     # Bot protection
 │   │   ├── rate-limiter.ts  # KV-based rate limiting
-│   │   ├── email.ts         # Resend API integration
+│   │   ├── email.ts         # Amazon SES email sending
 │   │   └── __tests__/       # Worker tests
 │   └── wrangler.toml        # Worker configuration
 ├── .github/
@@ -196,7 +196,8 @@ Deployed automatically when files in `worker/` change:
 
 ```bash
 wrangler secret put TURNSTILE_SECRET_KEY
-wrangler secret put RESEND_API_KEY
+wrangler secret put AWS_ACCESS_KEY_ID
+wrangler secret put AWS_SECRET_ACCESS_KEY
 ```
 
 ---

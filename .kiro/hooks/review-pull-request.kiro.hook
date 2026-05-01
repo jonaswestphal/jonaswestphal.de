@@ -1,13 +1,13 @@
 {
   "enabled": true,
-  "name": "Review Pull Request",
-  "description": "When triggered manually, reviews the current git diff for potential issues — checks for breaking changes, verifies tests pass, and validates the build. Useful for reviewing Dependabot PRs or any code changes before merging.",
+  "name": "Review All Open PRs",
+  "description": "Reviews all open pull requests for the jonaswestphal.de repository. Checks out each PR branch, runs tests and build, analyzes changes, and provides merge recommendations.",
   "version": "1",
   "when": {
     "type": "userTriggered"
   },
   "then": {
     "type": "askAgent",
-    "prompt": "Review the current git diff (use `git diff` or `git diff HEAD~1`) for potential issues. Specifically:\n\n1. Run `pnpm test` and `cd worker && pnpm test` to verify all tests pass\n2. Run `pnpm build` to verify the build succeeds\n3. Check the diff for:\n   - Breaking changes in dependencies (major version bumps)\n   - Removed or changed APIs that other code depends on\n   - Security concerns (new dependencies, changed permissions)\n   - Any TypeScript errors or type mismatches\n4. Summarize findings: what changed, whether it's safe to merge, and any concerns.\n\nIf this is a Dependabot PR (dependency update), focus on whether the version bump is compatible and tests still pass."
+    "prompt": "Review ALL open pull requests for THIS repository (jonaswestphal.de corporate website). Only operate within the current workspace directory. Do NOT touch other repositories.\n\n**Step 0 — Verify context:**\nRun `git remote -v` to confirm you are in the correct repository. If the remote does not point to the jonaswestphal.de repo, STOP and inform the user.\n\n**Step 1 — List open PRs:**\nRun `gh pr list --state open` to get all open pull requests for this repo.\n\n**Step 2 — For EACH open PR:**\n   a. Show PR title, number, author, and summary: `gh pr view <number>`\n   b. Check out the PR branch: `gh pr checkout <number>`\n   c. Install dependencies: `pnpm install` (and `cd worker && pnpm install && cd ..` if worker/ files changed)\n   d. Run frontend tests: `pnpm test`\n   e. Run worker tests (only if worker/ files affected): `cd worker && pnpm test && cd ..`\n   f. Run build: `pnpm build`\n   g. Analyze the diff: `gh pr diff <number>` — check for:\n      - Breaking changes (major version bumps)\n      - Removed or changed APIs that other code depends on\n      - Security concerns (new unknown dependencies, changed permissions)\n      - TypeScript errors or type mismatches\n   h. Record result: PASS (safe to merge) or FAIL (needs attention) with reason\n\n**Step 3 — Return to main:**\n`git checkout main && pnpm install`\n\n**Step 4 — Summary:**\nPresent a table with columns: PR#, Title, Author, Tests, Build, Recommendation (merge / skip / needs-review)\n\n**Step 5 — Merge offer:**\nFor PRs where tests pass, build succeeds, and changes are minor (patch/minor dependency updates from Dependabot), ask the user if they want to auto-merge them. If yes, run `gh pr merge <number> --squash` for each approved PR.\n\nIMPORTANT:\n- If `gh` CLI is not authenticated, tell the user to run `gh auth login` first.\n- Only operate on PRs belonging to THIS repository.\n- Always return to the main branch when done."
   }
 }

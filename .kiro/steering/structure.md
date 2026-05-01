@@ -35,7 +35,7 @@ The project has two packages: the Astro frontend (root) and a Cloudflare Worker 
 │   ├── src/
 │   │   ├── index.ts            # Worker entry point, CORS, request routing
 │   │   ├── validation.ts       # Form input validation
-│   │   ├── email.ts            # Resend API email sending
+│   │   ├── email.ts            # Amazon SES email sending
 │   │   ├── turnstile.ts        # Cloudflare Turnstile verification
 │   │   ├── rate-limiter.ts     # KV-based rate limiting
 │   │   ├── webhook.ts          # Webhook dispatch
