@@ -1,0 +1,92 @@
+---
+import type { SiteConfig } from "@/lib/types";
+
+interface Props {
+  siteConfig: SiteConfig;
+}
+
+const { siteConfig } = Astro.props;
+
+const siteUrl = "https://www.jonaswestphal.de";
+
+// Build canonical URL: always based on the current page's full path
+const canonicalUrl = `${siteUrl}${Astro.url.pathname}`;
+
+// Build OG image URL
+const ogImageUrl = new URL(siteConfig.image, siteUrl).href;
+
+// Build hreflang URLs for the current page
+// German pages are at root (/), English at /en/
+const currentPath = Astro.url.pathname;
+
+// Derive the base path without locale prefix
+function getBasePath(path: string): string {
+  // Remove /en/ prefix if present
+  const cleaned = path.replace(/^\/en(\/|$)/, "/");
+  return cleaned;
+}
+
+const basePath = getBasePath(currentPath);
+const deUrl = `${siteUrl}${basePath}`;
+const enUrl = `${siteUrl}/en${basePath === "/" ? "/" : basePath}`;
+
+// JSON-LD Structured Data: Organization + LocalBusiness
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": ["Organization", "LocalBusiness"],
+  name: "Jonas Westphal – IT & Cloud Solutions",
+  url: siteUrl,
+  description: siteConfig.description,
+  logo: `${siteUrl}/favicon.svg`,
+  email: "kontakt@jonaswestphal.de",
+  sameAs: [
+    "https://www.linkedin.com/in/jonaswestphal",
+    "https://github.com/jonaswestphal",
+  ],
+  founder: {
+    "@type": "Person",
+    name: "Jonas Westphal",
+  },
+  areaServed: {
+    "@type": "Country",
+    name: "Germany",
+  },
+  serviceType: [
+    "IT Consulting",
+    "Cloud Solutions",
+    "n8n Workflow Automation",
+    "AI Workflow Automation",
+    "Managed Hosting",
+    "Startup Consulting",
+  ],
+};
+---
+
+<!-- SEO Meta Tags -->
+<title>{siteConfig.title}</title>
+<meta name="description" content={siteConfig.description} />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalUrl} />
+
+<!-- Open Graph Tags -->
+<meta property="og:title" content={siteConfig.title} />
+<meta property="og:description" content={siteConfig.description} />
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:locale" content={siteConfig.ogLocale} />
+
+<!-- Twitter Card Tags -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={siteConfig.title} />
+<meta name="twitter:description" content={siteConfig.description} />
+<meta name="twitter:image" content={ogImageUrl} />
+
+<!-- hreflang Tags for i18n -->
+<link rel="alternate" hreflang="de" href={deUrl} />
+<link rel="alternate" hreflang="en" href={enUrl} />
+<link rel="alternate" hreflang="x-default" href={deUrl} />
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

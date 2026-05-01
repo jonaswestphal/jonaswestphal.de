@@ -1,0 +1,36 @@
+---
+// LanguageSwitcher: Compact DE/EN toggle
+// Uses Astro's i18n helpers to generate the equivalent page URL in the other language
+
+import { getLocaleFromUrl, getLocalizedPath } from "@/lib/i18n";
+import type { Locale } from "@/lib/types";
+
+const currentLocale = getLocaleFromUrl(Astro.url);
+const targetLocale: Locale = currentLocale === "de" ? "en" : "de";
+const targetPath = getLocalizedPath(Astro.url.pathname, targetLocale);
+---
+
+<a
+  href={targetPath}
+  class="inline-flex items-center gap-1 rounded-md px-2 py-1.5 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+  aria-label={currentLocale === "de" ? "Switch to English" : "Auf Deutsch wechseln"}
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="h-4 w-4"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="10"></circle>
+    <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+    <path d="M2 12h20"></path>
+  </svg>
+  <span class={currentLocale === "de" ? "opacity-50" : "font-bold"}>EN</span>
+  <span class="text-muted-foreground/50">/</span>
+  <span class={currentLocale === "de" ? "font-bold" : "opacity-50"}>DE</span>
+</a>

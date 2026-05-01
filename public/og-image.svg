@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#1a1f35"/>
+
+  <!-- Subtle gradient overlay -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1f35;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2a3555;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg-gradient)"/>
+
+  <!-- Accent line at top -->
+  <rect x="0" y="0" width="1200" height="4" fill="#3b5fc0"/>
+
+  <!-- JW Monogram -->
+  <rect x="80" y="200" width="80" height="80" rx="16" fill="#3b5fc0"/>
+  <text x="120" y="252" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-weight="700" font-size="36" fill="#f8f9fa">JW</text>
+
+  <!-- Brand Name -->
+  <text x="190" y="232" font-family="system-ui, -apple-system, sans-serif" font-weight="700" font-size="48" fill="#f0f2f5">Jonas Westphal</text>
+
+  <!-- Subtitle -->
+  <text x="190" y="272" font-family="system-ui, -apple-system, sans-serif" font-weight="400" font-size="28" fill="#8b9cc0">IT &amp; Cloud Solutions</text>
+
+  <!-- Tagline -->
+  <text x="80" y="380" font-family="system-ui, -apple-system, sans-serif" font-weight="400" font-size="24" fill="#a0aec0">Professionelle IT-Beratung · Automatisierung · Managed Hosting</text>
+
+  <!-- Website URL -->
+  <text x="80" y="540" font-family="system-ui, -apple-system, sans-serif" font-weight="400" font-size="20" fill="#6b7fa0">www.jonaswestphal.de</text>
+
+  <!-- Bottom accent line -->
+  <rect x="0" y="626" width="1200" height="4" fill="#3b5fc0"/>
+</svg>

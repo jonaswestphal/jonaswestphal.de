@@ -1,0 +1,25 @@
+---
+import type { SkillCategory } from "@/lib/types";
+import Badge from "./starwind/badge/Badge.astro";
+
+interface Props {
+  categories: SkillCategory[];
+}
+
+const { categories } = Astro.props;
+---
+
+<div class="space-y-4">
+	{categories.map((category) => (
+		<div>
+			<h4 class="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+				{category.category}
+			</h4>
+			<div class="flex flex-wrap gap-2">
+				{category.skills.map((skill) => (
+					<Badge variant="secondary" size="sm">{skill}</Badge>
+				))}
+			</div>
+		</div>
+	))}
+</div>

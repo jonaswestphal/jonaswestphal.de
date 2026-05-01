@@ -1,0 +1,205 @@
+---
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout locale="de">
+	<section class="py-12 sm:py-16 md:py-20 lg:py-24">
+		<div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+			<h1 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-foreground mb-8 sm:mb-12">
+				Datenschutzerklärung
+			</h1>
+
+			<div class="prose prose-lg dark:prose-invert max-w-none space-y-8">
+				<!-- 1. Verantwortlicher -->
+				<div>
+					<h2 class="text-2xl font-semibold text-foreground mb-4">1. Verantwortlicher</h2>
+					<p class="text-muted-foreground leading-relaxed">
+						Jonas Westphal<br />
+						<!-- Bitte ergänzen: Straße und Hausnummer --><br />
+						<!-- Bitte ergänzen: PLZ und Ort --><br />
+						E-Mail: kontakt@jonaswestphal.de
+					</p>
+					<p class="text-sm text-muted-foreground/70 italic leading-relaxed">
+						Hinweis: Bitte ergänzen Sie die vollständige Postanschrift vor Veröffentlichung.
+					</p>
+				</div>
+
+				<!-- 2. Hosting und CDN (Cloudflare) -->
+				<div>
+					<h2 class="text-2xl font-semibold text-foreground mb-4">2. Hosting und CDN (Cloudflare)</h2>
+					<p class="text-muted-foreground leading-relaxed">
+						Diese Website wird von Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, USA, gehostet und über deren Content Delivery Network (CDN) ausgeliefert.
+					</p>
+					<p class="text-muted-foreground leading-relaxed">
+						<strong class="text-foreground">Genutzte Dienste:</strong> Cloudflare Pages (Hosting), Content Delivery Network (CDN), Web Application Firewall (WAF) und weitere Sicherheitsdienste.
+					</p>
+					<p class="text-muted-foreground leading-relaxed">
+						<strong class="text-foreground">Verarbeitete Daten:</strong> IP-Adresse, Request-Metadaten (Browsertyp, Betriebssystem, Referrer URL, Zeitstempel), Sicherheitsdaten (z.&nbsp;B. zur Erkennung von Angriffen).
+					</p>
+					<p class="text-muted-foreground leading-relaxed">
+						<strong class="text-foreground">Zweck:</strong> Performance-Optimierung, Verfügbarkeit, Sicherheit und Missbrauchsprävention.
+					</p>
+					<p class="text-muted-foreground leading-relaxed">
+						<strong class="text-foreground">Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der sicheren und effizienten Bereitstellung unseres Internetangebots).
+					</p>
+					<p class="text-muted-foreground leading-relaxed">
+						Ein Auftragsverarbeitungsvertrag (Data Processing Agreement, DPA) ist Bestandteil der vertraglichen Vereinbarungen mit Cloudflare. Die Datenübermittlung in die USA erfolgt auf Basis von Standardvertragsklauseln (SCC) der Europäischen Kommission gemäß Art. 46 Abs. 2 lit. c DSGVO.
+					</p>
+				</div>
+
+				<!-- 3. Server-Logdateien -->
+				<div>
+					<h2 class="text-2xl font-semibold text-foreground mb-4">3. Server-Logdateien</h2>
+					<p class="text-muted-foreground leading-relaxed">
+						Der Hosting-Provider erhebt und speichert automatisch Informationen in sogenannten Server-Logdateien, die Ihr Browser automatisch übermittelt. Dies umfasst:
+					</p>
+					<ul class="list-disc list-inside text-muted-foreground leading-relaxed space-y-1 ml-4">
+						<li>IP-Adresse des zugreifenden Rechners</li>
+						<li>Datum und Uhrzeit der Anfrage (Zeitstempel)</li>
+						<li>Browsertyp und -version</li>
+						<li>Verwendetes Betriebssystem</li>
+						<li>Referrer URL (zuvor besuchte Seite)</li>
+					</ul>
+					<p class="text-muted-foreground leading-relaxed">
+						Diese Daten werden nicht mit anderen Datenquellen zusammengeführt.
+					</p>
+					<p class="text-muted-foreground leading-relaxed">
+						<strong class="text-foreground">Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der technischen Bereitstellung und Sicherheit der Website).
+					</p>
+				</div>
+
+				<!-- 4. Cloudflare Analytics (cookieless) -->
+				<div>
+					<h2 class="text-2xl font-semibold text-foreground mb-4">4. Cloudflare Web Analytics</h2>
+					<p class="text-muted-foreground leading-relaxed">
+						Diese Website nutzt Cloudflare Web Analytics im cookieless-Modus. Dabei werden keine Cookies gesetzt und keine personenbezogenen Daten erhoben, die eine Zuordnung zu einzelnen Nutzern ermöglichen. Es werden ausschließlich aggregierte Nutzungsstatistiken erfasst (z.&nbsp;B. Seitenaufrufe, Verweildauer, verwendete Gerätetypen).
+					</p>
+					<p class="text-muted-foreground leading-relaxed">
+						Da keine Cookies gesetzt werden und keine personenbezogene Zuordnung erfolgt, ist für Cloudflare Web Analytics keine Einwilligung gemäß § 25 TTDSG erforderlich.
+					</p>
+					<p class="text-muted-foreground leading-relaxed">
+						<strong class="text-foreground">Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der anonymen Auswertung des Nutzungsverhaltens zur Verbesserung des Webangebots).
+					</p>
+				</div>
+
+				<!-- 5. Google Analytics (GA4) – mit Einwilligung -->
+				<div>
+					<h2 class="text-2xl font-semibold text-foreground mb-4">5. Google Analytics (GA4)</h2>
+					<p class="text-muted-foreground leading-relaxed">
+						Diese Website nutzt Google Analytics 4, einen Webanalysedienst der Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland (nachfolgend „Google").
+					</p>
+					<p class="text-muted-foreground leading-relaxed">
+						Google Analytics wird <strong class="text-foreground">ausschließlich nach Ihrer ausdrücklichen Einwilligung</strong> über das Cookie-Banner geladen (Opt-in). Ohne Ihre Einwilligung findet kein Tracking statt.
+					</p>
+					<p class="text-muted-foreground leading-relaxed">
+						<strong class="text-foreground">Konfiguration:</strong> IP-Anonymisierung ist aktiviert, Google Signals ist deaktiviert, Anzeigenpersonalisierung ist deaktiviert, die Datenspeicherung ist auf das Minimum reduziert.
+					</p>
+					<p class="text-muted-foreground leading-relaxed">
+						<strong class="text-foreground">Verarbeitete Daten:</strong> Nutzungsverhalten, Seitenaufrufe, Verweildauer, Geräte- und Browserinformationen.
+					</p>
+					<p class="text-muted-foreground leading-relaxed">
+						<strong class="text-foreground">Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO (Einwilligung).
+					</p>
+					<p class="text-muted-foreground leading-relaxed">
+						<strong class="text-foreground">Widerrufsrecht:</strong> Sie können Ihre Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen, indem Sie auf den Link „Cookie-Einstellungen" im Footer der Website klicken und Ihre Auswahl ändern.
+					</p>
+					<p class="text-muted-foreground leading-relaxed">
+						Die Datenübermittlung in die USA erfolgt auf Basis von Standardvertragsklauseln (SCC) der Europäischen Kommission. Ein Auftragsverarbeitungsvertrag (DPA) besteht mit Google.
+					</p>
+				</div>
+
+				<!-- 6. Cookies und Einwilligung (TTDSG) -->
+				<div>
+					<h2 class="text-2xl font-semibold text-foreground mb-4">6. Cookies und Einwilligung (TTDSG)</h2>
+					<p class="text-muted-foreground leading-relaxed">
+						Diese Website verwendet ein Opt-in-Modell gemäß § 25 TTDSG. Beim ersten Besuch werden Sie über ein Cookie-Banner über die Verwendung von Cookies informiert und um Ihre Einwilligung gebeten.
+					</p>
+					<p class="text-muted-foreground leading-relaxed">
+						<strong class="text-foreground">Technisch notwendige Speicherung (keine Einwilligung erforderlich):</strong>
+					</p>
+					<ul class="list-disc list-inside text-muted-foreground leading-relaxed space-y-1 ml-4">
+						<li>Consent-Speicherung (localStorage) – speichert Ihre Cookie-Entscheidung</li>
+						<li>Theme-Präferenz (localStorage) – speichert Ihre Auswahl zwischen hellem und dunklem Design</li>
+					</ul>
+					<p class="text-muted-foreground leading-relaxed">
+						<strong class="text-foreground">Analyse-Cookies (nur mit ausdrücklicher Einwilligung):</strong>
+					</p>
+					<ul class="list-disc list-inside text-muted-foreground leading-relaxed space-y-1 ml-4">
+						<li>Google Analytics – wird erst nach Ihrer Einwilligung geladen</li>
+					</ul>
+					<p class="text-muted-foreground leading-relaxed">
+						Es findet kein Tracking vor Erteilung der Einwilligung statt. Es werden keine Checkboxen vorausgewählt. Sie können Ihre Einwilligung jederzeit über den Link „Cookie-Einstellungen" im Footer der Website widerrufen.
+					</p>
+				</div>
+
+				<!-- 7. Kontaktformular (Cloudflare Worker) -->
+				<div>
+					<h2 class="text-2xl font-semibold text-foreground mb-4">7. Kontaktformular</h2>
+					<p class="text-muted-foreground leading-relaxed">
+						Wenn Sie uns über das Kontaktformular kontaktieren, werden folgende Daten erhoben (Datenminimierung):
+					</p>
+					<ul class="list-disc list-inside text-muted-foreground leading-relaxed space-y-1 ml-4">
+						<li>Name</li>
+						<li>E-Mail-Adresse</li>
+						<li>Nachricht</li>
+					</ul>
+					<p class="text-muted-foreground leading-relaxed">
+						Die Daten werden über einen Cloudflare Worker verarbeitet und per E-Mail über die Resend API an uns weitergeleitet. Es erfolgt kein unnötiges Logging der übermittelten Daten. Die Übertragung erfolgt verschlüsselt über HTTPS.
+					</p>
+					<p class="text-muted-foreground leading-relaxed">
+						<strong class="text-foreground">Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (Durchführung vorvertraglicher Maßnahmen auf Anfrage der betroffenen Person) bzw. Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Bearbeitung von Anfragen).
+					</p>
+				</div>
+
+				<!-- 8. Cloudflare Turnstile (Bot-Schutz) -->
+				<div>
+					<h2 class="text-2xl font-semibold text-foreground mb-4">8. Cloudflare Turnstile (Bot-Schutz)</h2>
+					<p class="text-muted-foreground leading-relaxed">
+						Zum Schutz unseres Kontaktformulars vor automatisierten Anfragen (Bots) setzen wir Cloudflare Turnstile ein.
+					</p>
+					<p class="text-muted-foreground leading-relaxed">
+						<strong class="text-foreground">Verarbeitete Daten:</strong> IP-Adresse, Verhaltensdaten (z.&nbsp;B. Mausbewegungen, Tastatureingaben zur Unterscheidung von Menschen und Bots).
+					</p>
+					<p class="text-muted-foreground leading-relaxed">
+						<strong class="text-foreground">Zweck:</strong> Missbrauchsprävention und Schutz vor automatisierten Anfragen.
+					</p>
+					<p class="text-muted-foreground leading-relaxed">
+						<strong class="text-foreground">Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse am Schutz vor Missbrauch).
+					</p>
+				</div>
+
+				<!-- 9. Drittlandtransfer (USA) -->
+				<div>
+					<h2 class="text-2xl font-semibold text-foreground mb-4">9. Drittlandtransfer (USA)</h2>
+					<p class="text-muted-foreground leading-relaxed">
+						Cloudflare, Inc. und Google Ireland Limited (bzw. deren Muttergesellschaft Google LLC) haben ihren Sitz bzw. verarbeiten Daten in den USA. Die USA gelten als Drittland im Sinne der DSGVO.
+					</p>
+					<p class="text-muted-foreground leading-relaxed">
+						Die Datenübermittlung in die USA erfolgt auf Basis von Standardvertragsklauseln (Standard Contractual Clauses, SCC) der Europäischen Kommission gemäß Art. 46 Abs. 2 lit. c DSGVO. Auftragsverarbeitungsverträge (Data Processing Agreements, DPA) bestehen mit beiden Anbietern.
+					</p>
+				</div>
+
+				<!-- 10. Betroffenenrechte -->
+				<div>
+					<h2 class="text-2xl font-semibold text-foreground mb-4">10. Ihre Rechte (Betroffenenrechte)</h2>
+					<p class="text-muted-foreground leading-relaxed">
+						Sie haben gegenüber dem Verantwortlichen folgende Rechte hinsichtlich Ihrer personenbezogenen Daten:
+					</p>
+					<ul class="list-disc list-inside text-muted-foreground leading-relaxed space-y-1 ml-4">
+						<li><strong class="text-foreground">Auskunftsrecht</strong> (Art. 15 DSGVO)</li>
+						<li><strong class="text-foreground">Recht auf Berichtigung</strong> (Art. 16 DSGVO)</li>
+						<li><strong class="text-foreground">Recht auf Löschung</strong> (Art. 17 DSGVO)</li>
+						<li><strong class="text-foreground">Recht auf Einschränkung der Verarbeitung</strong> (Art. 18 DSGVO)</li>
+						<li><strong class="text-foreground">Recht auf Datenübertragbarkeit</strong> (Art. 20 DSGVO)</li>
+						<li><strong class="text-foreground">Widerspruchsrecht</strong> (Art. 21 DSGVO)</li>
+						<li><strong class="text-foreground">Recht auf Widerruf der Einwilligung</strong> (Art. 7 Abs. 3 DSGVO) – ohne dass die Rechtmäßigkeit der aufgrund der Einwilligung bis zum Widerruf erfolgten Verarbeitung berührt wird</li>
+						<li><strong class="text-foreground">Beschwerderecht bei einer Aufsichtsbehörde</strong> – Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde über die Verarbeitung Ihrer personenbezogenen Daten zu beschweren</li>
+					</ul>
+					<p class="text-muted-foreground leading-relaxed">
+						Zur Ausübung Ihrer Rechte wenden Sie sich bitte an: <a href="mailto:kontakt@jonaswestphal.de" class="text-primary hover:underline">kontakt@jonaswestphal.de</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>

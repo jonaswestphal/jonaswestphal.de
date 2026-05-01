@@ -1,0 +1,278 @@
+---
+import type { Locale } from "@/lib/types";
+import { getContent } from "@/lib/content";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "de" } = Astro.props;
+const content = getContent(locale);
+const { cookieConsent } = content;
+---
+
+<div
+  id="cookie-consent-banner"
+  class="fixed inset-x-0 bottom-0 z-50 hidden"
+  role="dialog"
+  aria-label={cookieConsent.title}
+  data-accept-all={cookieConsent.acceptAll}
+  data-reject={cookieConsent.rejectNonEssential}
+  data-customize={cookieConsent.customize}
+  data-save={cookieConsent.save}
+>
+  <!-- Backdrop -->
+  <div class="fixed inset-0 bg-black/20 backdrop-blur-sm" aria-hidden="true"></div>
+
+  <!-- Banner -->
+  <div class="relative mx-auto max-w-2xl px-4 pb-6 sm:px-6">
+    <div class="rounded-xl border border-border bg-card shadow-2xl p-6 sm:p-8">
+      <!-- Main View -->
+      <div id="cookie-main-view">
+        <h3 class="text-lg font-semibold text-foreground mb-2">
+          {cookieConsent.title}
+        </h3>
+        <p class="text-sm text-muted-foreground mb-6 leading-relaxed">
+          {cookieConsent.description}
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <button
+            type="button"
+            id="cookie-accept-all"
+            class="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-5 text-base font-medium transition-colors focus-visible:ring-3 focus-visible:ring-primary/50 outline-none"
+          >
+            {cookieConsent.acceptAll}
+          </button>
+          <button
+            type="button"
+            id="cookie-reject"
+            class="inline-flex items-center justify-center rounded-md border border-border bg-background hover:bg-muted h-11 px-5 text-base font-medium text-foreground transition-colors focus-visible:ring-3 focus-visible:ring-outline/50 outline-none"
+          >
+            {cookieConsent.rejectNonEssential}
+          </button>
+          <button
+            type="button"
+            id="cookie-customize"
+            class="inline-flex items-center justify-center rounded-md text-sm text-muted-foreground hover:text-foreground h-11 px-5 font-medium transition-colors focus-visible:ring-3 focus-visible:ring-outline/50 outline-none"
+          >
+            {cookieConsent.customize}
+          </button>
+        </div>
+      </div>
+
+      <!-- Customize View (hidden by default) -->
+      <div id="cookie-customize-view" class="hidden">
+        <h3 class="text-lg font-semibold text-foreground mb-4">
+          {cookieConsent.title}
+        </h3>
+
+        <!-- Necessary Cookies (always on) -->
+        <div class="mb-4 rounded-lg border border-border p-4">
+          <div class="flex items-center justify-between">
+            <div class="flex-1 pr-4">
+              <p class="font-medium text-foreground text-sm">{cookieConsent.categories.necessary.label}</p>
+              <p class="text-xs text-muted-foreground mt-1">{cookieConsent.categories.necessary.description}</p>
+            </div>
+            <!-- Always-on toggle (disabled) -->
+            <div class="relative">
+              <button
+                type="button"
+                role="switch"
+                aria-checked="true"
+                disabled
+                class="relative inline-flex h-6 w-11 shrink-0 cursor-not-allowed rounded-full border-2 border-transparent bg-primary opacity-70 transition-colors"
+                aria-label={cookieConsent.categories.necessary.label}
+              >
+                <span class="pointer-events-none inline-block h-5 w-5 translate-x-5 rounded-full bg-white shadow-lg transition-transform"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Analytics Cookies (toggleable) -->
+        <div class="mb-6 rounded-lg border border-border p-4">
+          <div class="flex items-center justify-between">
+            <div class="flex-1 pr-4">
+              <p class="font-medium text-foreground text-sm">{cookieConsent.categories.analytics.label}</p>
+              <p class="text-xs text-muted-foreground mt-1">{cookieConsent.categories.analytics.description}</p>
+            </div>
+            <!-- Analytics toggle -->
+            <div class="relative">
+              <button
+                type="button"
+                role="switch"
+                aria-checked="false"
+                id="cookie-analytics-toggle"
+                class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-muted transition-colors focus-visible:ring-3 focus-visible:ring-primary/50 outline-none"
+                aria-label={cookieConsent.categories.analytics.label}
+              >
+                <span class="pointer-events-none inline-block h-5 w-5 translate-x-0 rounded-full bg-white shadow-lg transition-transform"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <button
+            type="button"
+            id="cookie-save"
+            class="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-5 text-base font-medium transition-colors focus-visible:ring-3 focus-visible:ring-primary/50 outline-none"
+          >
+            {cookieConsent.save}
+          </button>
+          <button
+            type="button"
+            id="cookie-back"
+            class="inline-flex items-center justify-center rounded-md border border-border bg-background hover:bg-muted h-11 px-5 text-base font-medium text-foreground transition-colors focus-visible:ring-3 focus-visible:ring-outline/50 outline-none"
+          >
+            ← {locale === "de" ? "Zurück" : "Back"}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = "cookie-consent";
+
+  const banner = document.getElementById("cookie-consent-banner");
+  const mainView = document.getElementById("cookie-main-view");
+  const customizeView = document.getElementById("cookie-customize-view");
+  const analyticsToggle = document.getElementById("cookie-analytics-toggle") as HTMLButtonElement | null;
+
+  let analyticsEnabled = false;
+
+  function getConsent(): { necessary: boolean; analytics: boolean } | null {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        return JSON.parse(stored);
+      }
+    } catch {
+      // localStorage unavailable or malformed
+    }
+    return null;
+  }
+
+  function saveConsent(analytics: boolean) {
+    const consent = { necessary: true, analytics };
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(consent));
+    } catch {
+      // localStorage unavailable
+    }
+
+    if (analytics) {
+      loadGA4();
+    }
+
+    hideBanner();
+  }
+
+  function loadGA4() {
+    // Only load if not already loaded — DSGVO: no preload, no server-side bypass
+    if (document.querySelector('script[src*="googletagmanager.com/gtag"]')) {
+      return;
+    }
+
+    const gtagId = "G-XXXXXXXXXX";
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${gtagId}`;
+    document.head.appendChild(script);
+
+    (window as any).dataLayer = (window as any).dataLayer || [];
+    function gtag(...args: any[]) {
+      (window as any).dataLayer.push(args);
+    }
+    gtag("js", new Date());
+    gtag("config", gtagId, {
+      anonymize_ip: true,
+      allow_google_signals: false,
+      allow_ad_personalization_signals: false,
+    });
+  }
+
+  function showBanner() {
+    if (banner) {
+      banner.classList.remove("hidden");
+      // Reset to main view
+      mainView?.classList.remove("hidden");
+      customizeView?.classList.add("hidden");
+      // Reset analytics toggle
+      analyticsEnabled = false;
+      updateToggleUI();
+    }
+  }
+
+  function hideBanner() {
+    banner?.classList.add("hidden");
+  }
+
+  function updateToggleUI() {
+    if (analyticsToggle) {
+      analyticsToggle.setAttribute("aria-checked", String(analyticsEnabled));
+      const thumb = analyticsToggle.querySelector("span");
+      if (analyticsEnabled) {
+        analyticsToggle.classList.remove("bg-muted");
+        analyticsToggle.classList.add("bg-primary");
+        thumb?.classList.remove("translate-x-0");
+        thumb?.classList.add("translate-x-5");
+      } else {
+        analyticsToggle.classList.remove("bg-primary");
+        analyticsToggle.classList.add("bg-muted");
+        thumb?.classList.remove("translate-x-5");
+        thumb?.classList.add("translate-x-0");
+      }
+    }
+  }
+
+  // --- Event Listeners ---
+
+  // Accept All
+  document.getElementById("cookie-accept-all")?.addEventListener("click", () => {
+    saveConsent(true);
+  });
+
+  // Reject Non-Essential
+  document.getElementById("cookie-reject")?.addEventListener("click", () => {
+    saveConsent(false);
+  });
+
+  // Customize
+  document.getElementById("cookie-customize")?.addEventListener("click", () => {
+    mainView?.classList.add("hidden");
+    customizeView?.classList.remove("hidden");
+  });
+
+  // Back to main view
+  document.getElementById("cookie-back")?.addEventListener("click", () => {
+    customizeView?.classList.add("hidden");
+    mainView?.classList.remove("hidden");
+  });
+
+  // Analytics toggle
+  analyticsToggle?.addEventListener("click", () => {
+    analyticsEnabled = !analyticsEnabled;
+    updateToggleUI();
+  });
+
+  // Save custom preferences
+  document.getElementById("cookie-save")?.addEventListener("click", () => {
+    saveConsent(analyticsEnabled);
+  });
+
+  // Listen for show-cookie-consent event (from Footer revoke link)
+  window.addEventListener("show-cookie-consent", () => {
+    showBanner();
+  });
+
+  // --- Initialization ---
+  // Show banner on first visit (no consent stored)
+  const existingConsent = getConsent();
+  if (!existingConsent) {
+    showBanner();
+  }
+</script>

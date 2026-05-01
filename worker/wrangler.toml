@@ -1,0 +1,18 @@
+name = "contact-form-worker"
+main = "src/index.ts"
+compatibility_date = "2025-06-01"
+
+[vars]
+EMAIL_TO = "kontakt@jonaswestphal.de"
+EMAIL_FROM = "noreply@jonaswestphal.de"
+
+# KV Namespace for rate limiting
+# Replace the id with the actual KV namespace ID after running:
+# wrangler kv:namespace create RATE_LIMIT
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id = "PLACEHOLDER_KV_NAMESPACE_ID"
+
+# Secrets (set via `wrangler secret put`):
+# - TURNSTILE_SECRET_KEY
+# - RESEND_API_KEY

@@ -1,0 +1,100 @@
+---
+import type { Locale } from "@/lib/types";
+import { getContent } from "@/lib/content";
+import SEOHead from "@/components/SEOHead.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import CookieConsent from "@/components/CookieConsent.astro";
+import "@/styles/starwind.css";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "de" } = Astro.props;
+const content = getContent(locale);
+const { siteConfig } = content;
+---
+
+<!doctype html>
+<html lang={locale}>
+	<head>
+		<!-- Character Encoding & Viewport -->
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="generator" content={Astro.generator} />
+
+		<!-- SEO Head (title, meta, OG, hreflang, JSON-LD) -->
+		<SEOHead siteConfig={siteConfig} />
+
+		<!-- Favicon & Icons -->
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+		<meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+
+		<!-- No-index for Development -->
+		{import.meta.env.DEV && <meta name="robots" content="noindex, nofollow" />}
+
+		<!-- Dark mode: inline script runs before first paint to avoid FOUC -->
+		<script is:inline>
+			const isDark =
+				localStorage.getItem("theme") === "dark" ||
+				(!localStorage.getItem("theme") && window.matchMedia("(prefers-color-scheme: dark)").matches);
+			if (isDark) {
+				document.documentElement.classList.add("dark");
+			}
+		</script>
+
+		<!-- Google Analytics GA4: only load when cookie consent for analytics is granted -->
+		<!-- DSGVO/TTDSG: No GA script, no preload, no tracking before explicit opt-in consent -->
+		<script is:inline>
+			(function() {
+				try {
+					var consent = localStorage.getItem("cookie-consent");
+					if (consent) {
+						var parsed = JSON.parse(consent);
+						if (parsed && parsed.analytics === true) {
+							var gtagId = "G-XXXXXXXXXX";
+							var script = document.createElement("script");
+							script.async = true;
+							script.src = "https://www.googletagmanager.com/gtag/js?id=" + gtagId;
+							document.head.appendChild(script);
+
+							window.dataLayer = window.dataLayer || [];
+							function gtag() { window.dataLayer.push(arguments); }
+							gtag("js", new Date());
+							gtag("config", gtagId, {
+								anonymize_ip: true,
+								allow_google_signals: false,
+								allow_ad_personalization_signals: false
+							});
+						}
+					}
+				} catch (e) {
+					// If localStorage is unavailable or consent is malformed, do not load GA
+				}
+			})();
+		</script>
+	</head>
+	<body class="bg-background text-foreground">
+		<Header locale={locale} />
+		<main>
+			<slot />
+		</main>
+		<Footer locale={locale} />
+		<CookieConsent locale={locale} />
+	</body>
+</html>
+
+<style>
+	html,
+	body {
+		margin: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	:global(html) {
+		scroll-behavior: smooth;
+	}
+</style>

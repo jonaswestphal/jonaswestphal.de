@@ -1,0 +1,52 @@
+---
+interface Props {
+  size?: "sm" | "md" | "lg";
+  class?: string;
+}
+
+const { size = "md", class: className } = Astro.props;
+
+const sizes = {
+  sm: { width: 32, height: 32, fontSize: "text-sm" },
+  md: { width: 40, height: 40, fontSize: "text-base" },
+  lg: { width: 48, height: 48, fontSize: "text-lg" },
+};
+
+const { width, height } = sizes[size];
+---
+
+<div class={`flex items-center gap-2 ${className || ""}`}>
+  <!-- JW Monogram Icon -->
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    viewBox="0 0 40 40"
+    fill="none"
+    class="shrink-0"
+    aria-hidden="true"
+  >
+    <rect width="40" height="40" rx="8" class="fill-primary" />
+    <text
+      x="20"
+      y="26"
+      text-anchor="middle"
+      font-family="system-ui, -apple-system, sans-serif"
+      font-weight="700"
+      font-size="18"
+      class="fill-primary-foreground"
+    >
+      JW
+    </text>
+  </svg>
+
+  <!-- Brand Text -->
+  <div class="hidden sm:flex flex-col leading-tight">
+    <span class="font-bold text-foreground text-sm md:text-base tracking-tight">
+      Jonas Westphal
+    </span>
+    <span class="text-muted-foreground text-xs md:text-sm">
+      IT &amp; Cloud Solutions
+    </span>
+  </div>
+</div>

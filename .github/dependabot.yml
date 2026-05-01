@@ -1,0 +1,59 @@
+version: 2
+
+updates:
+  # Root frontend dependencies (pnpm)
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 10
+    groups:
+      astro:
+        patterns:
+          - "astro"
+          - "@astrojs/*"
+      tailwind:
+        patterns:
+          - "tailwindcss"
+          - "@tailwindcss/*"
+          - "tailwind-*"
+          - "tw-animate-css"
+      testing:
+        patterns:
+          - "vitest"
+          - "fast-check"
+    labels:
+      - dependencies
+      - frontend
+
+  # Worker dependencies (pnpm)
+  - package-ecosystem: npm
+    directory: /worker
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    groups:
+      cloudflare:
+        patterns:
+          - "wrangler"
+          - "@cloudflare/*"
+      testing:
+        patterns:
+          - "vitest"
+          - "fast-check"
+    labels:
+      - dependencies
+      - worker
+
+  # GitHub Actions
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
+      - ci

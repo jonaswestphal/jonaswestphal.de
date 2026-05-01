@@ -1,0 +1,28 @@
+---
+import type { ProcessStep } from "@/lib/types";
+
+interface Props {
+  step: ProcessStep;
+}
+
+const { step } = Astro.props;
+---
+
+<div class="relative flex flex-col items-center md:items-start text-center md:text-left">
+	<!-- Step Number Circle -->
+	<div class="mb-6 shrink-0">
+		<div class="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground text-2xl font-bold">
+			{step.stepNumber}
+		</div>
+	</div>
+
+	<!-- Step Content -->
+	<div>
+		<h3 class="text-xl sm:text-2xl font-bold text-foreground mb-3">
+			{step.title}
+		</h3>
+		<p class="text-muted-foreground leading-relaxed">
+			{step.description}
+		</p>
+	</div>
+</div>

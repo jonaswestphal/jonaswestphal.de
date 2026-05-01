@@ -1,0 +1,71 @@
+---
+import { getContent } from "@/lib/content";
+import type { Locale } from "@/lib/types";
+import SkillTags from "./SkillTags.astro";
+import Timeline from "./Timeline.astro";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "de" } = Astro.props;
+const content = getContent(locale);
+const { profile } = content;
+---
+
+<section id="about" class="py-12 sm:py-16 md:py-20 lg:py-24">
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<!-- Section Header -->
+		<div class="max-w-3xl mx-auto text-center mb-12 sm:mb-16">
+			<h2 class="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-foreground mb-4 sm:mb-6">
+				{profile.sectionTitle}
+			</h2>
+		</div>
+
+		<div class="grid gap-12 lg:gap-16 lg:grid-cols-2">
+			<!-- Left: Introduction & Experience -->
+			<div class="space-y-6">
+				<p class="text-lg text-muted-foreground leading-relaxed">
+					{profile.introduction}
+				</p>
+				<p class="text-lg text-muted-foreground leading-relaxed">
+					{profile.experienceSummary}
+				</p>
+
+				<!-- Competency Highlights -->
+				<div class="space-y-3 pt-2">
+					{profile.competencyHighlights.map((highlight) => (
+						<div class="flex items-start gap-3">
+							<svg xmlns="http://www.w3.org/2000/svg" class="size-5 mt-0.5 shrink-0 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+							</svg>
+							<span class="text-foreground">{highlight}</span>
+						</div>
+					))}
+				</div>
+
+				<!-- Soft Skills -->
+				<div class="space-y-3 pt-2">
+					{profile.softSkills.map((skill) => (
+						<div class="flex items-start gap-3">
+							<svg xmlns="http://www.w3.org/2000/svg" class="size-5 mt-0.5 shrink-0 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 00-.491 6.347A48.62 48.62 0 0112 20.904a48.62 48.62 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.636 50.636 0 00-2.658-.813A59.906 59.906 0 0112 3.493a59.903 59.903 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0112 13.489a50.702 50.702 0 017.74-3.342" />
+							</svg>
+							<span class="text-foreground">{skill}</span>
+						</div>
+					))}
+				</div>
+			</div>
+
+			<!-- Right: Technical Stack -->
+			<div>
+				<SkillTags categories={profile.technicalStack} />
+			</div>
+		</div>
+
+		<!-- Timeline -->
+		<div class="mt-16 sm:mt-20">
+			<Timeline locale={locale} />
+		</div>
+	</div>
+</section>
